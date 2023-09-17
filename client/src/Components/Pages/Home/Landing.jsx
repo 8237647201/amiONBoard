@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { TextField, Button, Box, styled, Typography } from "@mui/material";
+import RequestCard from "../Card/RequestCard.jsx";
 
 const Container = styled(Box)`
   display: flex;
@@ -16,19 +17,10 @@ const InnerBox = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -500px;
+  margin-top: -400px;
   padding: 20px;
   margin-bottom: 10px;
   background-color: #fff; /* White background for the form box */
-`;
-
-const RequestBox = styled(Box)`
-  border: 1px solid #000;
-  padding: 20px;
-  margin-top: 20px;
-  width: 50%;
-  text-align: center;
-  background-color: #fff; /* White background for the request details box */
 `;
 
 const To = styled(TextField)`
@@ -37,8 +29,8 @@ const To = styled(TextField)`
   margin-right: 10px;
   margin-left: 10px;
   input {
-    color: '#000';
-    background-color: '#f0f0f0'; /* Light gray background */
+    color: "#000";
+    background-color: "#f0f0f0"; /* Light gray background */
   }
 `;
 
@@ -48,8 +40,8 @@ const From = styled(TextField)`
   margin-right: 10px;
   margin-left: 10px;
   input {
-    color: '#000';
-    background-color: '#f0f0f0'; /* Light gray background */
+    color: "#000";
+    background-color: "#f0f0f0"; /* Light gray background */
   }
 `;
 
@@ -59,24 +51,29 @@ const LeavingTime = styled(TextField)`
   margin-right: 10px;
   margin-left: 10px;
   input {
-    color: '#000';
-    background-color: '#f0f0f0'; /* Light gray background */
+    color: "#000";
+    background-color: "#f0f0f0"; /* Light gray background */
   }
 `;
-
+const InitialForm = {
+  from: "",
+  to: "",
+  leavingTime: "",
+};
 const Amiboard = () => {
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
-  const [leavingTime, setLeavingTime] = useState('');
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [leavingTime, setLeavingTime] = useState("");
+  const [Form, setForm2] = useState(InitialForm);
   const [showRequest, setShowRequest] = useState(false);
   const [missingFields, setMissingFields] = useState([]);
 
   const handleRequest = () => {
     // Check for missing fields
     const missing = [];
-    if (!from.trim()) missing.push('Starting Point');
-    if (!to.trim()) missing.push('Destination');
-    if (!leavingTime.trim()) missing.push('Leaving Time');
+    if (!from.trim()) missing.push("Starting Point");
+    if (!to.trim()) missing.push("Destination");
+    if (!leavingTime.trim()) missing.push("Leaving Time");
 
     if (missing.length > 0) {
       // If any fields are missing, set the missingFields state
@@ -85,7 +82,11 @@ const Amiboard = () => {
     }
 
     // Implement your ride request logic here
-
+    setForm2({
+      to: to,
+      from: from,
+      leavingTime: leavingTime,
+    });
     // For demonstration purposes, we'll just show the request details
     setShowRequest(true);
 
@@ -120,24 +121,17 @@ const Amiboard = () => {
         <Button
           onClick={handleRequest}
           variant="outlined"
-          style={{ color: '#000', borderColor: '#000', marginTop: '10px' }}
+          style={{ color: "#000", borderColor: "#000", marginTop: "10px" }}
         >
           Request Ride
         </Button>
       </InnerBox>
       {missingFields.length > 0 && (
-        <Typography variant="body1" style={{ color: 'red', marginTop: '10px' }}>
-          Please fill in the following fields: {missingFields.join(', ')}
+        <Typography variant="body1" style={{ color: "red", marginTop: "10px" }}>
+          Please fill in the following fields: {missingFields.join(", ")}
         </Typography>
       )}
-      {showRequest && (
-        <RequestBox>
-          <Typography variant="h6" style={{ color: '#000' }}>Ride Request Details:</Typography>
-          <Typography style={{ color: '#000' }}>From: {from}</Typography>
-          <Typography style={{ color: '#000' }}>To: {to}</Typography>
-          <Typography style={{ color: '#000' }}>Leaving Time: {leavingTime}</Typography>
-        </RequestBox>
-      )}
+      {showRequest && <RequestCard form={Form} />}
     </Container>
   );
 };

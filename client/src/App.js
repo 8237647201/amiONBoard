@@ -16,9 +16,7 @@ import Header from "./Components/Pages/Header/Header.jsx"
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
     <>
-      <Header />
-
-      
+      <Header />    
       <Outlet />
     </>
   ) : (
