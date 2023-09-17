@@ -6,6 +6,6 @@ const Routes = express.Router();
 
 Routes.post("/signUp", signUpUser);
 Routes.post("/login", loginUser);
-Routes.post("/booking", authenticateToken, booking);
+Routes.post("/booking",  booking);
 
 export default Routes;
