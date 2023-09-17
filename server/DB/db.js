@@ -1,13 +1,19 @@
-import mongoose from  'mongoose';
+import mongoose from "mongoose";
 
-const DB = ()=>{
-   try {
-      mongoose.connect('mongodb+srv://admin:admin@cluster0.nhqiovq.mongodb.net/').then(
-         () =>{
-         console.log("connected");})
-   } catch (error) {
-      console.log(error)
-   }
-}
+const DB = () => {
+  try {
+    mongoose
+      .connect("mongodb+srv://admin:admin@cluster0.nhqiovq.mongodb.net/", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        connectTimeoutMS: 30000,
+      })
+      .then(() => {
+        console.log("connected");
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default DB;
