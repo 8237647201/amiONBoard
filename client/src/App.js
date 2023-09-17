@@ -17,6 +17,8 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
     <>
       <Header />
+
+      
       <Outlet />
     </>
   ) : (
