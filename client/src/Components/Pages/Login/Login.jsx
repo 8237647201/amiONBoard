@@ -182,7 +182,7 @@ const Login= ({isUserAuthenticated})=> {
               variant="standard"
               onChange={(e) => onInputChange(e)}
               name="password"
-              label="Enter Passowrd"
+              label="Enter Password"
             />
 
             {error && <Error>{error}</Error>}
