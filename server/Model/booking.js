@@ -13,6 +13,10 @@ const bookingSchema =  new Schema({
         type  :Date,
         requierd : true
     },
+    status :{
+      type : Boolean,
+      requierd  :true
+    },
   UserId : [{
     type  : Schema.Types.ObjectId,
     ref : 'user'

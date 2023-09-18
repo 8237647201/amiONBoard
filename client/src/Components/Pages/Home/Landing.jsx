@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Box, styled, Typography } from "@mui/material";
 import RequestCard from "../Card/RequestCard.jsx";
-
+import '../../../index.css'
 const Container = styled(Box)`
   display: flex;
   align-items: center;

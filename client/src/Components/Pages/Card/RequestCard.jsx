@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from "@mui/material";
-
+import 'index.css'
 const RequestBox = styled(Box)`
   border: 1px solid #000;
   padding: 20px;

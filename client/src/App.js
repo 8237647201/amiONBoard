@@ -1,5 +1,5 @@
-
-import './App.css';
+//include these file in every folder for tailwind
+import './index.css';
 import Login from './Components/Pages/Login/Login';
 import { useState } from 'react';
 import DataProvider from './Components/DataProvider/Dataprovider.jsx';

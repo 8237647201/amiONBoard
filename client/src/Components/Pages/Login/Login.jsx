@@ -6,7 +6,7 @@ import { logginUser, signupUser } from "../../API/fetchApi.js";
 import { DataContext } from "../../DataProvider/Dataprovider.jsx"; 
 import { useNavigate } from "react-router-dom";
 import { setHeaders, getAccessToken } from "../../utils/common-function.js";
-
+import '../../../index.css'
 const Component = styled(Box)`
   width: 400px;
   margin: auto;

@@ -10,6 +10,9 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  isRider :{
+     type : Boolean
+  },
   password: {
     type: String,
     requierd: true,
