@@ -3,7 +3,7 @@ import BackgroundImage from "../../Image/logo.png";
 import { useState, useContext } from "react";
 
 import { logginUser, signupUser } from "../../API/fetchApi.js";
-import { DataContext } from "../../DataProvider/Dataprovider.jsx"; 
+// import { DataContext } from "../../DataProvider/Dataprovider.jsx"; 
 import { useNavigate } from "react-router-dom";
 import { setHeaders, getAccessToken } from "../../utils/common-function.js";
 import '../../../index.css'
@@ -81,7 +81,7 @@ const Login= ({isUserAuthenticated})=> {
 
   const [error, setError] = useState("");
 
-  const { setAccount } = useContext(DataContext);
+  // const { setAccount } = useContext(DataContext);
 
   const Navigate = useNavigate();
 
@@ -124,10 +124,10 @@ const Login= ({isUserAuthenticated})=> {
         `Bearer ${response.data.refreshToken}`
       );
       setHeaders(getAccessToken());
-      setAccount({
-        username: response.data.username,
-        name: response.data.name,
-      });
+      // setAccount({
+      //   username: response.data.username,
+      //   name: response.data.name,
+      // });
       isUserAuthenticated(true);
       Navigate("/");
     } else {
@@ -201,3 +201,4 @@ const Login= ({isUserAuthenticated})=> {
 
 
 export default Login
+

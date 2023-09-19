@@ -138,74 +138,89 @@
 
 // export default Amiboard;
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
-import BackgroundImage from "../../Image/A.jpg";
-import{ useState, useEffect } from 'react';
-import { height, maxHeight } from '@mui/system';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Header from '../Header/Header.jsx';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import BackgroundImage from "../../Image/you.jpg";
+import { useState, useEffect } from "react";
+import { height, maxHeight } from "@mui/system";
+
 const containerStyle = {
-  backgroundColor: '#0d264c',
-  minHeight: '100vh',
-  padding: '20px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
+  backgroundColor: "#0d264c",
+  minHeight: "100vh",
+  padding: "20px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  width : "100%"
+  
 };
-const ButtonStyle={
-  backgroundColor:'white',
-  color: '#ff9000',
-  marginTop:'30px',
-  height:'40px'
-}
+const ButtonStyle = {
+  backgroundColor: "white",
+  color: "#ff9000",
+  marginTop: "30px",
+  height: "40px",
+};
+
+// const textStyle = {
+  
+   // Center text within its container
+// };
 
 const textStyle = {
-  textAlign: 'center', // Center text within its container
-};
- 
-const BoxStyle1={
-  backgroundColor:'#ff9000',
-  display: 'inline-block', 
-  maxWidth: 'auto', 
-  borderRadius: '10px', 
+  textAlign: "center",
+  textAlign: "center", // Center text within its container
+  fontSize: "24px", // Increase font size
+  fontWeight: "bold", // Make it bold
 };
 
-const BoxStyle2={
 
-  backgroundColor:'#ff9000',
-  display: 'inline-block', 
-  maxWidth: 'auto', 
-  borderRadius: '10px', 
+const BoxStyle1 = {
+  backgroundColor: "#ff9000",
+  display: "inline-block",
+  maxWidth: "auto",
+  borderRadius: "10px",
 };
 
-const BoxStyle3={
-
-  backgroundColor:'#ff9000',
-  marginRight:'30px',
-  display: 'inline-block', 
-  maxWidth: 'auto', 
-  borderRadius: '10px', 
+const BoxStyle2 = {
+  backgroundColor: "#ff9000",
+  display: "inline-block",
+  maxWidth: "auto",
+  borderRadius: "10px",
 };
 
-const image_container= {
-  width: '800px',
-  height: '250px',
-  overflow: 'hidden',
-  object_fit:'cover',
-}
+const BoxStyle3 = {
+  backgroundColor: "#ff9000",
+  marginRight: "30px",
+  display: "inline-block",
+  maxWidth: "auto",
+  borderRadius: "10px",
+};
 
+const image_container = {
+  width: "800px",
+  height: "250px",
+  overflow: "hidden",
+  object_fit: "cover",
+};
 
 export default function BasicSelect() {
-  const [selectedFrom, setSelectedFrom] = React.useState('');
+  const [From, setSelectedFrom] = useState("");
+  const [to, setSelectedto] = useState("");
   const [time, setTime] = useState(new Date());
   const handleChange = (event) => {
     setSelectedFrom(event.target.value);
+    
   };
+  const handelSecondChange = (event) => {
+    setSelectedto(event.target.value);
+  }
   useEffect(() => {
     // Update the time every second
     const intervalId = setInterval(() => {
@@ -219,62 +234,82 @@ export default function BasicSelect() {
   return (
     <div style={containerStyle}>
       <div style={image_container}>
-      <img src={BackgroundImage } />
+        <img src={BackgroundImage} />
       </div>
       <h1 style={textStyle}>
-        <span style={{ color: '#ff9000' }}>Book your</span><span style={{color:'white'}}> own ride
-</span>       
-</h1>
-<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-<Box sx={{ minWidth: 180,borderradius:50 }} style={BoxStyle1}>
-  <FormControl fullWidth>
-    <InputLabel id="from-select-label">From</InputLabel>
-    <Select
-      labelId="from-select-label"
-      id="from-select"
-      value={selectedFrom}
-      onChange={handleChange}
-      style={{ width: '100%', fontSize: '14px' }} // Add this style
-    >
-      <MenuItem value={10}>Amity</MenuItem>
-      <MenuItem value={20}>Panvel Station</MenuItem>
-      <MenuItem value={30}>India Bulls</MenuItem>
-      <MenuItem value={30}>Ajivali</MenuItem>
-    </Select>
-  </FormControl>
-</Box><div style={{ backgroundColor: 'white',marginTop:'25px', height: '2px', width: '170px' }} />
+        <span style={{ color: "#ff9000" }}>Book your</span>
+        <span style={{ color: "white" }}> own ride</span>
+      </h1>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ minWidth: 180, borderradius: 50 }} >
+          <FormControl fullWidth style={BoxStyle1}>
+            <InputLabel id="from-select-label" style={{ color : "black", fontWeight :"700px" }} >From</InputLabel>
+            <Select
+              labelId="from-select-label"
+              id="from-select"
+              value={From}
+              onChange={handleChange}
+              style={{ width: "100%", fontSize: "14px" }} // Add this style
+            >
+              <MenuItem value={"Amity"}>Amity</MenuItem>
+              <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
+              <MenuItem value={"India Bulls"}>India Bulls</MenuItem>
+              <MenuItem value={"Ajivali"}>Ajivali</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <div
+          style={{
+            backgroundColor: "white",
+            marginTop: "25px",
+            height: "2px",
+            width: "170px",
+          }}
+        />
 
-<Box sx={{ minWidth: 180,borderradius:10 }} style={BoxStyle2}>
-        <FormControl fullWidth>
-          <InputLabel id="to-select-label">To</InputLabel>
-          <Select
-            labelId="to-select-label"
-            id="to-select"
-            value={selectedFrom}
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Amity</MenuItem>
-            <MenuItem value={20}>Panvel Station</MenuItem>
-            <MenuItem value={30}>India Bulls</MenuItem>
-            <MenuItem value={30}>Ajivali</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <div style={{ backgroundColor: 'white',marginTop:'25px', height: '2px', width: '170px' }} />
-      <Box sx={{ minWidth: 180,borderradius:10 }} style={BoxStyle3}>
-        <FormControl fullWidth>
-          <InputLabel id="leaving-time-select-label">Leaving Time</InputLabel>
-          <Select
+        <Box sx={{ minWidth: 180, borderradius: 10 }} >
+          <FormControl fullWidth style={BoxStyle2} >
+            <InputLabel id="to-select-label">To</InputLabel>
+            <Select
+              labelId="to-select-label"
+              id="to-select"
+              value={to}
+              onChange={handelSecondChange}
+              style={{ width: "100%", fontSize: "14px" }}
+            >
+              <MenuItem value={"Amity"}>Amity</MenuItem>
+              <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
+              <MenuItem value={"India Bulls"}>India Bulls</MenuItem>
+              <MenuItem value={"Ajivali"}>Ajivali</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <div
+          style={{
+            backgroundColor: "white",
+            marginTop: "25px",
+            height: "2px",
+            width: "170px",
+          }}
+        />
+        <Box sx={{ minWidth: 180, borderradius: 10 }} style={BoxStyle3}>
+          <FormControl fullWidth>
+            <InputLabel id="leaving-time-select-label">Leaving Time</InputLabel>
+            <Select
               labelId="leaving-time-select-label"
               id="leaving-time-select"
-              value={selectedFrom}
+              // value={}
               onChange={handleChange}
-            >
-          </Select>
-        </FormControl>
-      </Box>
+            ></Select>
+          </FormControl>
+        </Box>
       </div>
-      <Button variant="contained" style={ButtonStyle}>Request</Button>
+      <Button variant="contained" style={ButtonStyle}>
+        Request
+      </Button>
     </div>
   );
 }
+
+
+
