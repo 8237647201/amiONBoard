@@ -12,7 +12,7 @@ import {
 import Home from "./Components/Pages/Home/Home";
 import Header from "./Components/Pages/Header/Header.jsx";
 import Landing from "./Components/Pages/Landing/Landing.jsx";
-import SignUP from "./Components/Pages/Login/SignUP";
+import SignUP from "./Components/Pages/Login/Signup";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
