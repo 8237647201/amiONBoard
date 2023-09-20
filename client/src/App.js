@@ -45,6 +45,7 @@ function App() {
               <Route exact path="/home" element={<Home />} />
             </Route>
           </Routes>
+          
         </div>
       </BrowserRouter>
     </DataProvider>
