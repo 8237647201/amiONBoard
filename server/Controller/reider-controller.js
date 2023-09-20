@@ -23,7 +23,7 @@ export const createRider = async (req, res) => {
 
 export const getRider = async (req, res) => {
   try {
-    const rider = await Rider.findById(req.params.id);
+    const rider = await Rider.findone({email : req.body.params});
 
     if (!rider) {
       return res.status(404).json({ msg: "Rider not found" });
@@ -38,7 +38,7 @@ export const getRider = async (req, res) => {
 
 export const updateRider = async (req, res) => {
   try {
-    const rider = await Rider.findById(req.params.id);
+    const rider = await Rider.findById({_id :req.params.id});
 
     if (!rider) {
       return res.status(404).json({ msg: "Rider not found" });

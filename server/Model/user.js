@@ -10,6 +10,17 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  email:{
+    type  : String,
+    requierd : true,
+    unique :true
+  },
+  mobile :{
+    type : Number,
+    requierd  :true,
+    min:10,
+    max:10
+  },
   isRider :{
      type : Boolean
   },

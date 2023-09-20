@@ -19,7 +19,7 @@ export const createPilean = async (req, res) => {
 
 export const getPilean = async (req, res) => {
   try {
-    const pilean = await Pilean.findById(req.params.id);
+    const pilean = await Pilean.findOne({email : req.body.email});
 
     if (!pilean) {
       return res.status(404).json({ msg: "User not found" });
@@ -33,7 +33,8 @@ export const getPilean = async (req, res) => {
 
 export const updatePilean = async (req, res) => {
   try {
-    const pilean = await Pilean.findById(req.params.id);
+    console.log(req.params.id)
+    const pilean = await Pilean.findById({_id :req.params.id});
 
     if (!pilean) {
       return res.status(404).json({ msg: "User not found" });

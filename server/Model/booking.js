@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema
 const bookingSchema =  new Schema({
+    username :{
+     type : String,
+     requierd : true
+    },
     from : {
         type : String,
         requierd : true
