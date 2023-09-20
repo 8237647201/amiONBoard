@@ -293,15 +293,16 @@ export default function BasicSelect() {
           }}
         />
         <Box sx={{ minWidth: 180, borderradius: 10 }} style={BoxStyle3}>
-          <FormControl fullWidth>
-            <InputLabel id="leaving-time-select-label">Leaving Time</InputLabel>
-            <Select
-              labelId="leaving-time-select-label"
-              id="leaving-time-select"
-              // value={}
-              onChange={handleChange}
-            ></Select>
-          </FormControl>
+        <input
+              type="text"
+              placeholder='Enter Time'
+              value={inputValue}
+              onChange={handleInputChange}
+              style={{width:'98%',height:'91%',margin:'2.5px',borderRadius:'10px',border:'none',backgroundColor:'#ff9000'
+              ,textAlign:'center',color:'black'}}
+              
+              
+            />
         </Box>
       </div>
       <Button variant="contained" style={ButtonStyle}>
