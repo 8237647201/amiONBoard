@@ -21,7 +21,7 @@ function Landing(props) {
         paddingRight: '10rem', 
       }}
     >
-      {/* <Header /> */}
+      <Header />
       <div className="text-white text-left" style={{ paddingLeft: '2rem' }}> 
         <h1 className="text-6xl font-bold mb-4" style={{ color: "white" }}>Book your</h1>
         <h1 className="text-6xl font-bold mb-4" style={{ color: "#ff9000" }}>Ride!</h1>
