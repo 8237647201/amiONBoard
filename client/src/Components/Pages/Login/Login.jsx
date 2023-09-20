@@ -129,7 +129,7 @@ const Login= ({isUserAuthenticated})=> {
       //   name: response.data.name,
       // });
       isUserAuthenticated(true);
-      Navigate("/");
+      Navigate("/home");
     } else {
       setError("Something went wrong");
     }
