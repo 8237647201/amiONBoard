@@ -221,6 +221,11 @@ export default function BasicSelect() {
   const handelSecondChange = (event) => {
     setSelectedto(event.target.value);
   }
+
+  const handleInputChange =(event)=>{
+    setTime(event.target.name)
+  }
+
   useEffect(() => {
     // Update the time every second
     const intervalId = setInterval(() => {
@@ -296,11 +301,11 @@ export default function BasicSelect() {
         <input
               type="text"
               placeholder='Enter Time'
-              value={inputValue}
+              value={time}
               onChange={handleInputChange}
               style={{width:'98%',height:'91%',margin:'2.5px',borderRadius:'10px',border:'none',backgroundColor:'#ff9000'
               ,textAlign:'center',color:'black'}}
-              
+              name ='time'
               
             />
         </Box>
