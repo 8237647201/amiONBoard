@@ -19,4 +19,4 @@ const StudentSchema = mongoose.Schema({
  
 });
 const Rider = mongoose.model('Pilen',StudentSchema)
-module.exports = Rider
+export default  Rider

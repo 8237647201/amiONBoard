@@ -13,10 +13,14 @@ const RiderSchema = mongoose.Schema({
     type: String,
     requierd: true,
   },
-  DLpdf: {
+  DLimage: {
+    type: String,
+    requierd: true,
+  },
+  profilePicture: {
     type: String,
     requierd: true,
   },
 });
-const Rider = mongoose.model('Rider',RiderSchema)
-module.exports = Rider
+const Rider = mongoose.model("Rider", RiderSchema);
+export default Rider;
