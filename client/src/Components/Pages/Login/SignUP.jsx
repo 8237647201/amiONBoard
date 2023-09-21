@@ -9,7 +9,8 @@ import {
 import BackgroundImage from "../../Image/logo.png";
 import GoogleIcon from "@mui/icons-material/Google"; // Import Google icon
 import '../../../index.css';
-
+import {signupUser} from '../../API/fetchApi'
+import { Navigate } from "react-router-dom";
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -76,9 +77,12 @@ const SignUP = () => {
     email: "",
     username: "",
     password: "",
-    confirmPassword: "",
-    enrollmentNo: "A", // Start with a capital "A"
+    mobile :"",
+    // confirmPassword: "",
+   
   });
+
+ const navigator = Navigate;
 
   const [error, setError] = useState("");
 
@@ -90,28 +94,36 @@ const SignUP = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
+    const val = document.getElementsByName("confirmPassword")
+    const confirmPassword = val.value
+    console.log(confirmPassword)
     // Validate the form fields here
     if (
       !formData.fullName ||
       !formData.email ||
       !formData.username ||
       !formData.password ||
-      !formData.confirmPassword ||
-      !formData.enrollmentNo
+       confirmPassword ||
+      !formData.mobile
     ) {
       setError("Please fill in all the fields");
       return;
     }
 
     // Check if password and confirm password match
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== confirmPassword) {
       setError("Password and Confirm Password do not match");
       return;
     }
 
     // Handle form submission logic here
     // Send the formData to your API or perform necessary actions
+    const response  =await signupUser(formData)
+    if(response){
+       navigator('/login')
+    }
+
   };
 
   return (
@@ -153,10 +165,10 @@ const SignUP = () => {
           />
           <TextField
             variant="standard"
-            name="enrollmentNo"
-            label="Your Enrollment No."
+            name="mobile"
+            label="Your Mobile No."
             onChange={handleInputChange}
-            value={formData.enrollmentNo} // Ensure it starts with "A"
+            value={formData.mobile} 
           />
 
           {error && <Error>{error}</Error>}
