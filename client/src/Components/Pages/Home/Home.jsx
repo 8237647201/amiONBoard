@@ -197,25 +197,43 @@ const BoxStyle3 = {
 export default function BasicSelect() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [inputValue, setInputValue] = useState(""); // Added inputValue state
+  const [inputValue, setInputValue] = useState({
+    username :'',
+    to : '',
+    from : '',
+    time : ''
+  }); // Added inputValue state
   const [missingFields, setMissingFields] = useState([]);
+  const [time ,  setTime] = useState("")
 
   const handleChange = (event) => {
-    setSelectedFrom(event.target.value);
+    setFrom(event.target.value);
     
   };
   const handelSecondChange = (event) => {
-    setSelectedto(event.target.value);
+    setTo(event.target.value);
   }
-  useEffect(() => {
-    // Update the time every second
-    const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+  const inputTime =(e)=>{
+       setTime(e.target.name)
+  }
 
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+  const handleSubmit = ()=>{
+        setInputValue({
+          username : "",
+          to : to,
+          from : from,
+          time: time 
+        })
+  }
+  // useEffect(() => {
+  //   // Update the time every second
+  //   const intervalId = setInterval(() => {
+  //     setTime(new Date());
+  //   }, 1000);
+
+  //   // Clean up the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <div style={containerStyle}>
@@ -263,7 +281,7 @@ export default function BasicSelect() {
               labelId="to-select-label"
               id="to-select"
               value={to}
-              onChange={handleSecondChange}
+              onChange={handelSecondChange}
               style={{ width: "100%", fontSize: "14px" }}
             >
               <MenuItem value={"Amity"}>Amity</MenuItem>
@@ -285,8 +303,8 @@ export default function BasicSelect() {
         <input
               type="text"
               placeholder='Enter Time'
-              value={inputValue}
-              onChange={handleInputChange}
+              value={time}
+              onChange={inputTime }
               style={{width:'98%',height:'91%',margin:'2.5px',borderRadius:'10px',border:'none',backgroundColor:'#ff9000'
               ,textAlign:'center',color:'black'}}
               
