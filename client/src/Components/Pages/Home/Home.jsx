@@ -203,31 +203,18 @@ export default function BasicSelect() {
   const handleChange = (event) => {
     setFrom(event.target.value);
   };
+  const handelSecondChange = (event) => {
+    setSelectedto(event.target.value);
+  }
+  useEffect(() => {
+    // Update the time every second
+    const intervalId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
 
-  const handleSecondChange = (event) => {
-    setTo(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    const missing = [];
-    if (!from.trim()) missing.push("Starting Point");
-    if (!to.trim()) missing.push("Destination");
-    if (!inputValue.trim()) missing.push("Leaving Time");
-
-    if (missing.length > 0) {
-      setMissingFields(missing);
-      return;
-    }
-
-    // Implement your ride request logic here
-    // For demonstration purposes, we'll just log the values
-    console.log("From:", from);
-    console.log("To:", to);
-    console.log("Leaving Time:", inputValue);
-
-    // Clear the missing fields when the request is successful
-    setMissingFields([]);
-  };
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div style={containerStyle}>
@@ -293,22 +280,16 @@ export default function BasicSelect() {
           }}
         />
         <Box sx={{ minWidth: 180, borderradius: 10 }} style={BoxStyle3}>
-          <input
-            type="text"
-            placeholder="Enter Time"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            style={{
-              width: "98%",
-              height: "91%",
-              margin: "2.5px",
-              borderRadius: "10px",
-              border: "none",
-              backgroundColor: "#ff9000",
-              textAlign: "center",
-              color: "black",
-            }}
-          />
+        <input
+              type="text"
+              placeholder='Enter Time'
+              value={inputValue}
+              onChange={handleInputChange}
+              style={{width:'98%',height:'91%',margin:'2.5px',borderRadius:'10px',border:'none',backgroundColor:'#ff9000'
+              ,textAlign:'center',color:'black'}}
+              
+              
+            />
         </Box>
       </div>
       <Button variant="contained" style={ButtonStyle} onClick={handleSubmit}>

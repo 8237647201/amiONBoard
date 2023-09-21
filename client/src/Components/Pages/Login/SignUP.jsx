@@ -70,7 +70,7 @@ const Error = styled(Typography)`
   font-weight: 600;
 `;
 
-const SignupPage = () => {
+const SignUP = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -172,4 +172,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SignUP;

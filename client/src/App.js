@@ -12,7 +12,9 @@ import {
 import Home from "./Components/Pages/Home/Home";
 import Header from "./Components/Pages/Header/Header.jsx";
 import Landing from "./Components/Pages/Landing/Landing.jsx";
-import SignUP from "./Components/Pages/Login/Signup";
+import SignUP from "./Components/Pages/Login/SignUP";
+import Service from "./Components/Pages/Service/Service";
+import Profile from "./Components/Pages/Profile/Profile";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -44,6 +46,15 @@ function App() {
             <Route path="/" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/home" element={<Home />} />
             </Route>
+
+            <Route path="/about" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+              <Route exact path="/about" element={<Service />} />
+            </Route>
+
+            <Route path="/profile" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+              <Route exact path="/profile" element={<Profile />} />
+            </Route>
+ 
           </Routes>
           
         </div>
