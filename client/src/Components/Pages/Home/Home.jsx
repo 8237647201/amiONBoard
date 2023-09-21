@@ -140,7 +140,6 @@
 
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Header from '../Header/Header.jsx';
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -148,7 +147,6 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import BackgroundImage from "../../Image/you.jpg";
 import { useState, useEffect } from "react";
-import { height, maxHeight } from "@mui/system";
 
 const containerStyle = {
   backgroundColor: "#0d264c",
@@ -158,9 +156,9 @@ const containerStyle = {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  width : "100%"
-  
+  width: "100%",
 };
+
 const ButtonStyle = {
   backgroundColor: "white",
   color: "#ff9000",
@@ -168,18 +166,11 @@ const ButtonStyle = {
   height: "40px",
 };
 
-// const textStyle = {
-  
-   // Center text within its container
-// };
-
 const textStyle = {
   textAlign: "center",
-  textAlign: "center", // Center text within its container
-  fontSize: "24px", // Increase font size
-  fontWeight: "bold", // Make it bold
+  fontSize: "24px",
+  fontWeight: "bold",
 };
-
 
 const BoxStyle1 = {
   backgroundColor: "#ff9000",
@@ -203,53 +194,62 @@ const BoxStyle3 = {
   borderRadius: "10px",
 };
 
-const image_container = {
-  width: "800px",
-  height: "250px",
-  overflow: "hidden",
-  object_fit: "cover",
-};
-
 export default function BasicSelect() {
-  const [From, setSelectedFrom] = useState("");
-  const [to, setSelectedto] = useState("");
-  const [time, setTime] = useState(new Date());
-  const handleChange = (event) => {
-    setSelectedFrom(event.target.value);
-    
-  };
-  const handelSecondChange = (event) => {
-    setSelectedto(event.target.value);
-  }
-  useEffect(() => {
-    // Update the time every second
-    const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [inputValue, setInputValue] = useState(""); // Added inputValue state
+  const [missingFields, setMissingFields] = useState([]);
 
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+  const handleChange = (event) => {
+    setFrom(event.target.value);
+  };
+
+  const handleSecondChange = (event) => {
+    setTo(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    const missing = [];
+    if (!from.trim()) missing.push("Starting Point");
+    if (!to.trim()) missing.push("Destination");
+    if (!inputValue.trim()) missing.push("Leaving Time");
+
+    if (missing.length > 0) {
+      setMissingFields(missing);
+      return;
+    }
+
+    // Implement your ride request logic here
+    // For demonstration purposes, we'll just log the values
+    console.log("From:", from);
+    console.log("To:", to);
+    console.log("Leaving Time:", inputValue);
+
+    // Clear the missing fields when the request is successful
+    setMissingFields([]);
+  };
 
   return (
     <div style={containerStyle}>
-      <div style={image_container}>
-        <img src={BackgroundImage} />
+      <div style={{ width: "800px", height: "250px", overflow: "hidden", objectFit: "cover" }}>
+        <img src={BackgroundImage} alt="Background" />
       </div>
       <h1 style={textStyle}>
         <span style={{ color: "#ff9000" }}>Book your</span>
         <span style={{ color: "white" }}> own ride</span>
       </h1>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ minWidth: 180, borderradius: 50 }} >
+        <Box sx={{ minWidth: 180, borderradius: 50 }}>
           <FormControl fullWidth style={BoxStyle1}>
-            <InputLabel id="from-select-label" style={{ color : "black", fontWeight :"700px" }} >From</InputLabel>
+            <InputLabel id="from-select-label" style={{ color: "black", fontWeight: "700px" }}>
+              From
+            </InputLabel>
             <Select
               labelId="from-select-label"
               id="from-select"
-              value={From}
+              value={from}
               onChange={handleChange}
-              style={{ width: "100%", fontSize: "14px" }} // Add this style
+              style={{ width: "100%", fontSize: "14px" }}
             >
               <MenuItem value={"Amity"}>Amity</MenuItem>
               <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
@@ -267,14 +267,14 @@ export default function BasicSelect() {
           }}
         />
 
-        <Box sx={{ minWidth: 180, borderradius: 10 }} >
-          <FormControl fullWidth style={BoxStyle2} >
+        <Box sx={{ minWidth: 180, borderradius: 10 }}>
+          <FormControl fullWidth style={BoxStyle2}>
             <InputLabel id="to-select-label">To</InputLabel>
             <Select
               labelId="to-select-label"
               id="to-select"
               value={to}
-              onChange={handelSecondChange}
+              onChange={handleSecondChange}
               style={{ width: "100%", fontSize: "14px" }}
             >
               <MenuItem value={"Amity"}>Amity</MenuItem>
@@ -293,21 +293,32 @@ export default function BasicSelect() {
           }}
         />
         <Box sx={{ minWidth: 180, borderradius: 10 }} style={BoxStyle3}>
-        <input
-              type="text"
-              placeholder='Enter Time'
-              value={inputValue}
-              onChange={handleInputChange}
-              style={{width:'98%',height:'91%',margin:'2.5px',borderRadius:'10px',border:'none',backgroundColor:'#ff9000'
-              ,textAlign:'center',color:'black'}}
-              
-              
-            />
+          <input
+            type="text"
+            placeholder="Enter Time"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            style={{
+              width: "98%",
+              height: "91%",
+              margin: "2.5px",
+              borderRadius: "10px",
+              border: "none",
+              backgroundColor: "#ff9000",
+              textAlign: "center",
+              color: "black",
+            }}
+          />
         </Box>
       </div>
-      <Button variant="contained" style={ButtonStyle}>
+      <Button variant="contained" style={ButtonStyle} onClick={handleSubmit}>
         Request
       </Button>
+      {missingFields.length > 0 && (
+        <p style={{ color: "red", marginTop: "10px" }}>
+          Please fill in the following fields: {missingFields.join(", ")}
+        </p>
+      )}
     </div>
   );
 }
