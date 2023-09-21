@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import BackgroundImage from "../../Image/you.jpg";
 import { useState, useEffect } from "react";
+import Service from  '../Service/Service'
 
 const containerStyle = {
   backgroundColor: "#0d264c",
@@ -183,6 +184,10 @@ export default function BasicSelect() {
           Please fill in the following fields: {missingFields.join(", ")}
         </p>
       )}
+
+
+      <Service/>
+
     </div>
   );
 }
