@@ -201,7 +201,8 @@ export default function BasicSelect() {
   const [missingFields, setMissingFields] = useState([]);
 
   const handleChange = (event) => {
-    setFrom(event.target.value);
+    setSelectedFrom(event.target.value);
+    
   };
   const handelSecondChange = (event) => {
     setSelectedto(event.target.value);
@@ -240,6 +241,7 @@ export default function BasicSelect() {
             >
               <MenuItem value={"Amity"}>Amity</MenuItem>
               <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
+              
               <MenuItem value={"India Bulls"}>India Bulls</MenuItem>
               <MenuItem value={"Ajivali"}>Ajivali</MenuItem>
             </Select>
