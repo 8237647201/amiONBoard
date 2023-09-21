@@ -27,7 +27,7 @@ const Wrapper = styled(Box)`
   & > div,
   & > button,
   & > p {
-    margin-top: 20px;
+    margin-top: 40px;
   }
 `;
 

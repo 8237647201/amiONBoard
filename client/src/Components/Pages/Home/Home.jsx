@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import Service from  '../Service/Service'
 
 const containerStyle = {
-  backgroundColor: "#0d264c",
+  backgroundColor: "white",
   minHeight: "100vh",
   padding: "20px",
   display: "flex",
@@ -104,8 +104,8 @@ export default function BasicSelect() {
         <img src={BackgroundImage} alt="Background" />
       </div>
       <h1 style={textStyle}>
-        <span style={{ color: "#ff9000" }}>Book your</span>
-        <span style={{ color: "white" }}> own ride</span>
+        <span style={{ color: "#ff9000" }}>#Book your</span>
+        <span style={{ color: "#ff9000" }}> own ride</span>
       </h1>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{ minWidth: 180, borderradius: 50 }}>
@@ -118,7 +118,7 @@ export default function BasicSelect() {
               id="from-select"
               value={from}
               onChange={handleChange}
-              style={{ width: "100%", fontSize: "14px" }}
+              style={{ width: "100%", fontSize: "15px" }}
             >
               <MenuItem value={"Amity"}>Amity</MenuItem>
               <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
