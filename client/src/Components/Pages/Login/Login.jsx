@@ -3,10 +3,10 @@ import BackgroundImage from "../../Image/logo.png";
 import { useState, useContext } from "react";
 
 import { logginUser, signupUser } from "../../API/fetchApi.js";
-// import { DataContext } from "../../DataProvider/Dataprovider.jsx"; 
+// import { DataContext } from "../../DataProvider/Dataprovider.jsx";
 import { useNavigate } from "react-router-dom";
 import { setHeaders, getAccessToken } from "../../utils/common-function.js";
-import '../../../index.css'
+import "../../../index.css";
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -72,11 +72,7 @@ const loginInitialValue = {
   password: "",
 };
 
-const Login= ({isUserAuthenticated})=> {
-   const [account, toggelAccount] = useState("login");
-
-  const [signup, setSignUp] = useState(UserData);
-
+const Login = ({ isUserAuthenticated }) => {
   const [login, setLogin] = useState(loginInitialValue);
 
   const [error, setError] = useState("");
@@ -86,28 +82,11 @@ const Login= ({isUserAuthenticated})=> {
   const Navigate = useNavigate();
 
   const toggelState = () => {
-    account == "signup" ? toggelAccount("login") : toggelAccount("signup");
-  };
-
-  const onInputChange = (e) => {
-    setSignUp({ ...signup, [e.target.name]: e.target.value });
+    Navigate("/signup");
   };
 
   const onValueChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-
-  const signUpUser = async () => {
-    // let response = await API.userSignup(signup);
-    let response = await signupUser(signup);
-
-    if (response) {
-      setError("");
-      setSignUp(UserData);
-      toggelAccount("login");
-    } else {
-      setError("Something Went wrong! Please try later");
-    }
   };
 
   const loginUser = async () => {
@@ -139,84 +118,46 @@ const Login= ({isUserAuthenticated})=> {
     <Component>
       <Box>
         <Image src={BackgroundImage} />
-        {account == "login" ? (
-          <Wrapper>
-            <TextField
-              variant="standard"
-              // value={login.username}
-              onChange={(e) => onValueChange(e)}
-              name="username"
-              label="Enter UserName"
-            />
-            <TextField
-              variant="standard"
-              onChange={(e) => onValueChange(e)}
-              // value={login.password}
-              name="password"
-              label="Enter Password"
-            />
-            {error && <Error>{error}</Error>}
-            <LoginButton variant="contained" onClick={() => loginUser()}>
-              Login
-            </LoginButton>
-            <Text style={{ textAlign: "center" }}> OR</Text>
-            <SignUpButton onClick={() => toggelState()}>
-              Create an Account
-            </SignUpButton>
-          </Wrapper>
-        ) : (
-          <Wrapper>
-            <TextField
-              variant="standard"
-              onChange={(e) => onInputChange(e)}
-              name="name"
-              label="Enter Name"
-            />
-            <TextField
-              variant="standard"
-              onChange={(e) => onInputChange(e)}
-              name="username"
-              label="Enter Username"
-            />
-            <TextField
-              variant="standard"
-              onChange={(e) => onInputChange(e)}
-              name="password"
-              label="Enter Password"
-            />
 
-            {error && <Error>{error}</Error>}
-
-            <SignUpButton onClick={() => signUpUser()}>SignUp</SignUpButton>
-            <Text style={{ textAlign: "center" }}> OR</Text>
-            <LoginButton variant="contained" onClick={() => toggelState()}>
-              Already have an Account
-            </LoginButton>
-          </Wrapper>
-        )}
+        <Wrapper>
+          <TextField
+            variant="standard"
+            // value={login.username}
+            onChange={(e) => onValueChange(e)}
+            name="username"
+            label="Enter UserName"
+          />
+          <TextField
+            variant="standard"
+            onChange={(e) => onValueChange(e)}
+            // value={login.password}
+            name="password"
+            label="Enter Password"
+          />
+          {error && <Error>{error}</Error>}
+          <LoginButton variant="contained" onClick={() => loginUser()}>
+            Login
+          </LoginButton>
+          <Text style={{ textAlign: "center" }}> OR</Text>
+          <SignUpButton onClick={() => toggelState()}>
+            Create an Account
+          </SignUpButton>
+        </Wrapper>
       </Box>
     </Component>
   );
 };
 
+export default Login;
 
-export default Login
+// import {Box} from '@mui/material'
 
+// const SignUP = ()=>{
+//     return(
+//       <Box>
 
+//       </Box>
+//     )
+// }
 
-
-
-
-
-  // import {Box} from '@mui/material'
-
-
-  // const SignUP = ()=>{
-  //     return(
-  //       <Box>
-          
-  //       </Box>
-  //     )
-  // }
-
-  // export default SignUP
+// export default SignUP
