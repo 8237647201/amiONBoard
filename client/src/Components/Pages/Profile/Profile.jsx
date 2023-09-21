@@ -45,7 +45,7 @@ const Profile = () => {
           id="demo-row-radio-buttons-group-label"
           style={{ fontSize: "30px", color: "black" }}
         >
-          Gender
+          Select Profile
         </FormLabel>
         <RadioGroup
           row
