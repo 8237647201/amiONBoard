@@ -16,7 +16,9 @@ const StudentSchema = mongoose.Schema({
     type: String,
     requierd: true,
   },
- 
+  mobile :{
+    type : String
+  }
 });
 const Rider = mongoose.model('Pilen',StudentSchema)
 export default  Rider

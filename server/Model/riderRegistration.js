@@ -21,6 +21,9 @@ const RiderSchema = mongoose.Schema({
     type: String,
     requierd: true,
   },
+  mobile :{
+    type : String
+  }
 });
 const Rider = mongoose.model("Rider", RiderSchema);
 export default Rider;
