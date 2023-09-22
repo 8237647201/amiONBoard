@@ -14,11 +14,11 @@ const bookingSchema =  new Schema({
         requierd  :true
     },
     leaveTime : {
-        type  :Date,
+        type  : String,
         requierd : true
     },
     status :{
-      type : Boolean,
+      type : Number,
       requierd  :true
     },
   UserId : [{

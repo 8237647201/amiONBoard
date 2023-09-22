@@ -10,15 +10,17 @@ const RequestBox = styled(Box)`
 `;
 
 const RequestCard = (props) => {
+  const { form } = props;
+
   return (
     <RequestBox>
       <Typography variant="h6" style={{ color: "#000" }}>
         Ride Request Details:
       </Typography>
-      <Typography style={{ color: "#000" }}>From: {props.form.from}</Typography>
-      <Typography style={{ color: "#000" }}>To: {props.form.to}</Typography>
+      <Typography style={{ color: "#000" }}>From: {form.from}</Typography>
+      <Typography style={{ color: "#000" }}>To: {form.to}</Typography>
       <Typography style={{ color: "#000" }}>
-        Leaving Time: {props.form.leaveTime}
+        Leaving Time: {form.leaveTime}
       </Typography>
     </RequestBox>
   );

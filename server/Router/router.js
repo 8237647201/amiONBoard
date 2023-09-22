@@ -22,7 +22,7 @@ const Routes = express.Router();
 Routes.post("/signUp", signUpUser);
 Routes.post("/login", loginUser);
 Routes.post("/booking", authenticateToken,createbooking);
-Routes.get("/getactiveBooking", authenticateToken ,getAllBooking);
+Routes.get("/getactiveBooking/:username", authenticateToken ,getAllBooking);
 Routes.post("/upload", upload.single("file"), uploadImage);
 Routes.get("/getImage", getImage);
 Routes.post("/pillianRegisteration", authenticateToken, createPilean);

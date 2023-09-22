@@ -34,3 +34,13 @@ export const logginUser = async (data) => {
      console.log(error)
    }
  }
+
+ //get all active booking
+
+  export const getActiveBooking = async(username)=>{
+    try {
+       return await axios.get(base.concat(`/getactiveBooking/${username}`)) 
+    } catch (error) {
+       console.log(error)
+    }
+  }

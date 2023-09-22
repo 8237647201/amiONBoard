@@ -1,16 +1,20 @@
 import Booking from "../Model/booking.js";
+import User from "../Model/user.js";
 
 export const createbooking = async (req, res) => {
   try {
-    const response = new Booking({
-      from: req.body.from,
-      to: req.body.to,
-      leaveTime: req.body.leaveTime,
-      status  :req.body.status,
-      UserId: req.body.id,
-    });
-    response.save();
-    res.status(200).json({ booked: true,res : response });
+    const user = await User.findOne({ username: req.body.username });
+    if (user) {
+      const response = new Booking({
+        from: req.body.from,
+        to: req.body.to,
+        leaveTime: req.body.leaveTime,
+        status: req.body.status,
+        UserId: user._id,
+      });
+      response.save();
+      res.status(200).json({ booked: true, res: response });
+    }
   } catch (error) {
     console.error("Error creating booking:", error);
 
@@ -21,19 +25,26 @@ export const createbooking = async (req, res) => {
 };
 
 export const getAllBooking = async (req, res) => {
-  const activeBooking = [];
   try {
-    // Use "await" to wait for the asynchronous operation to complete.
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
     const response = await Booking.find();
 
-    // It's better to use "filter" to select the active bookings.
-    const activeBookings = response.filter((booking) => booking.status === true);
+    const activeBookings = response.filter(
+      (booking) => booking.status === 1 && booking.UserId  != user._id
+    );
 
-    // Return the active bookings directly in the response.
+    if (activeBookings.length === 0) {
+      return res.status(404).json({ msg: "No active bookings available" });
+    }
+
     res.status(200).json(activeBookings);
   } catch (error) {
-    // Handle errors properly. Logging the error message is a good practice.
     console.error("Error while getting data:", error);
     res.status(500).json({ error: "Error while getting data" });
   }
 };
+;

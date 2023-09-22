@@ -12,7 +12,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import RequestCard from "../../Card/RequestCard.jsx";
 import { DataContext } from "../../../DataProvider/Dataprovider.jsx";
-import {creatBooking } from "../../../API/fetchApi.js"
+import { creatBooking, getActiveBooking } from "../../../API/fetchApi.js";
 
 const Container = styled(Box)({
   display: "flex",
@@ -59,21 +59,26 @@ const BookingData = {
 const Ride = () => {
   const [inputValue, setInputValue] = useState(BookingData);
   const { account } = useContext(DataContext);
-
+  const [activeBooking, setActiveBooking] = useState([BookingData]);
   useEffect(() => {
     // Update the username property of inputValue with account.username
-    setInputValue({ ...inputValue, username: account.username });
+    setInputValue({ ...inputValue, username: account.username, status: 1 });
   }, [account.username]);
+
+  useEffect(() => {
+    const getAllActiveBooking = async () => {
+      const res = await getActiveBooking(account.username);
+      setActiveBooking(res.data);
+    };
+    getAllActiveBooking();
+  }, []);
 
   const handleChange = (event) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
-
-  const handleSubmit = async() => {
-    console.log(inputValue);
-     const resposne =  await creatBooking (inputValue);
-
-    
+  console.log(activeBooking);
+  const handleSubmit = async () => {
+    const resposne = await creatBooking(inputValue);
   };
 
   return (
@@ -124,17 +129,14 @@ const Ride = () => {
           Request
         </Button>
 
-        <Box>
-           Your Request
-        </Box>
-
+        <Box>Your Request</Box>
       </Sidebar>
       <Content>
         <Typography variant="h5" gutterBottom>
           Ride Requests
         </Typography>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-          <RequestCard key={item} form={inputValue} />
+        {activeBooking.map((item, index) => (
+          <RequestCard key={index} form={item} />
         ))}
       </Content>
     </Container>
