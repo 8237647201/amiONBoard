@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  Box,
-  TextField,
-  Button,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import BackgroundImage from "../../Image/logo.png";
 import GoogleIcon from "@mui/icons-material/Google"; // Import Google icon
-import '../../../index.css';
-import {signupUser} from '../../API/fetchApi'
+import "../../../index.css";
+import { signupUser } from "../../API/fetchApi";
 import { Navigate } from "react-router-dom";
 const Component = styled(Box)`
   width: 400px;
@@ -71,18 +65,28 @@ const Error = styled(Typography)`
   font-weight: 600;
 `;
 
+const Data = {
+  fullName: "",
+  email: "",
+  username: "",
+  password: "",
+  mobile: "",
+  isRider : false,
+  isStudednt : false
+};
+
 const SignUP = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     username: "",
     password: "",
-    mobile :"",
-    // confirmPassword: "",
-   
+    mobile: "",
+    confirmPassword: "",
   });
+  const [data, setData] = useState(Data);
 
- const navigator = Navigate;
+  const navigator = Navigate;
 
   const [error, setError] = useState("");
 
@@ -94,17 +98,14 @@ const SignUP = () => {
     });
   };
 
-  const handleSubmit = async() => {
-    const val = document.getElementsByName("confirmPassword")
-    const confirmPassword = val.value
-    console.log(confirmPassword)
+  const handleSubmit = async () => {
     // Validate the form fields here
     if (
       !formData.fullName ||
       !formData.email ||
       !formData.username ||
       !formData.password ||
-       confirmPassword ||
+      !formData.confirmPassword ||
       !formData.mobile
     ) {
       setError("Please fill in all the fields");
@@ -112,18 +113,28 @@ const SignUP = () => {
     }
 
     // Check if password and confirm password match
-    if (formData.password !== confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       setError("Password and Confirm Password do not match");
       return;
     }
-
+    const updatedData = {
+      ...data,
+      fullName: formData.fullName,
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      mobile: formData.mobile,
+    };
+  
+    // Update the state with the new data
+    setData(updatedData);
+    console.log(data);
     // Handle form submission logic here
     // Send the formData to your API or perform necessary actions
-    const response  =await signupUser(formData)
-    if(response){
-       navigator('/login')
+    const response = await signupUser(data);
+    if (response) {
+      navigator("/login");
     }
-
   };
 
   return (
@@ -168,7 +179,7 @@ const SignUP = () => {
             name="mobile"
             label="Your Mobile No."
             onChange={handleInputChange}
-            value={formData.mobile} 
+            value={formData.mobile}
           />
 
           {error && <Error>{error}</Error>}

@@ -9,17 +9,22 @@ dotEnv.config();
 export const signUpUser = async (req, res) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
-
-    const user = {
+  
+    
+   
+    const newUser = new User({
       username: req.body.username,
       name: req.body.name,
       password: hash,
-    };
+      email : req.body.email,
+      mobile : req.body.mobile,
+      isRider : req.body.isRider,
+      isStudednt : req.body.isStudent,
 
-    const newUser = new User(user);
-
+    });
+    console.log(newUser)
     await newUser.save();
-
+    
     return res.status(200).json({
       msg: "signUp successfull",
     });
