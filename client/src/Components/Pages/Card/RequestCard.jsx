@@ -22,6 +22,12 @@ const RequestCard = (props) => {
       <Typography style={{ color: "#000" }}>
         Leaving Time: {form.leaveTime}
       </Typography>
+      <Typography style={{ color: "#000" }}>
+        CreatedBY: {form.username}
+      </Typography>
+      <Typography style={{ color: "#000" }}>
+        Status: {form.status}
+      </Typography>
     </RequestBox>
   );
 };

@@ -68,7 +68,9 @@ const Ride = () => {
   useEffect(() => {
     const getAllActiveBooking = async () => {
       const res = await getActiveBooking(account.username);
-      setActiveBooking(res.data);
+      if (res) {
+        setActiveBooking(res.data);
+      }
     };
     getAllActiveBooking();
   }, []);
@@ -78,7 +80,10 @@ const Ride = () => {
   };
   console.log(activeBooking);
   const handleSubmit = async () => {
-    const resposne = await creatBooking(inputValue);
+    const res = await creatBooking(inputValue);
+    if (res.data.booking) {
+      window.alert("Already Have an active request");
+    }
   };
 
   return (
@@ -136,6 +141,7 @@ const Ride = () => {
           Ride Requests
         </Typography>
         {activeBooking.map((item, index) => (
+          
           <RequestCard key={index} form={item} />
         ))}
       </Content>
