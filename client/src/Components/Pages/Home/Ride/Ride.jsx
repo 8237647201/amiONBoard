@@ -119,6 +119,11 @@ const Ride = () => {
         <Button variant="contained" style={ButtonStyle} onClick={handleSubmit}>
           Request
         </Button>
+
+        <Box>
+           Your Request
+        </Box>
+
       </Sidebar>
       <Content>
         <Typography variant="h5" gutterBottom>
