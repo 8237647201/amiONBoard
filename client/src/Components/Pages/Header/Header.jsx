@@ -13,10 +13,10 @@ const Container = styled(Toolbar)`
   & > a {
     padding: 20px;
     text-decoration: none;
-    color: white; 
+    color: red; 
     font-weight: bold; 
     cursor: pointer;
-    font-size: 20px;
+    font-size: 25px;
   }
 `;
 
@@ -26,7 +26,7 @@ const Header = () => {
       <Container>
         <Link to="/home">Home</Link>
         <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        {/* <Link to="/contact">Contact</Link> */}
         <Link to="/profile">Profile</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Sign Up</Link>
