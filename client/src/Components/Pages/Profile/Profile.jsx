@@ -72,8 +72,8 @@ const Profile = () => {
     //     <Button variant="outlined" style={{marginTop :'20px'}} onClick={handelInput} >Next</Button>
     //   </FormControl>
     // </Box>
-    // <RiderRegisteraion/>
-    <StudentRegistreration/>
+    <RiderRegisteraion/>
+    // <StudentRegistreration/>
   );
 };
 
