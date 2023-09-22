@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Box,
   TextareaAutosize,
   styled,
   Button,
   Typography,
-  TextField
+  TextField,
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import RequestCard from "../../Card/RequestCard.jsx";
+import { DataContext } from "../../../DataProvider/Dataprovider.jsx";
+import {creatBooking } from "../../../API/fetchApi.js"
 
 const Container = styled(Box)({
   display: "flex",
@@ -24,9 +26,9 @@ const Sidebar = styled(Box)({
   flex: 1,
   padding: "20px",
   backgroundColor: "#ffffff",
-  display :'flex',
-  flexDirection :'column',
-  paddingTop : "60px"
+  display: "flex",
+  flexDirection: "column",
+  paddingTop: "60px",
 });
 
 const Content = styled(Box)({
@@ -34,7 +36,7 @@ const Content = styled(Box)({
   padding: "20px",
   backgroundColor: "#ffffff",
   overflowY: "auto",
-  paddingTop : "60px"
+  paddingTop: "60px",
 });
 
 const ButtonStyle = {
@@ -44,41 +46,34 @@ const ButtonStyle = {
   height: "40px",
 };
 
+const InputLabel = styled(Typography)({});
 
-const InputLabel = styled(Typography)({
-      
-})
+const BookingData = {
+  username: "",
+  from: "",
+  to: "",
+  leaveTime: "",
+  status: "",
+};
 
 const Ride = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [time, setTime] = useState("");
-  const [inputValue, setInputValue] = useState({
-    username: "",
-    to: "",
-    from: "",
-    time: "",
-  });
+  const [inputValue, setInputValue] = useState(BookingData);
+  const { account } = useContext(DataContext);
+
+  useEffect(() => {
+    // Update the username property of inputValue with account.username
+    setInputValue({ ...inputValue, username: account.username });
+  }, [account.username]);
 
   const handleChange = (event) => {
-    setFrom(event.target.value);
+    setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
 
-  const handleSecondChange = (event) => {
-    setTo(event.target.value);
-  };
+  const handleSubmit = async() => {
+    console.log(inputValue);
+     const resposne =  await creatBooking (inputValue);
 
-  const handleTimeChange = (e) => {
-    setTime(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    setInputValue({
-      username: "",
-      to: to,
-      from: from,
-      time: time,
-    });
+    
   };
 
   return (
@@ -92,8 +87,9 @@ const Ride = () => {
           <Select
             labelId="from-select-label"
             id="from-select"
-            value={from}
-            onChange={handleChange}
+            value={inputValue.from}
+            name="from"
+            onChange={(e) => handleChange(e)}
           >
             <MenuItem value={"Amity"}>Amity</MenuItem>
             <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
@@ -106,8 +102,9 @@ const Ride = () => {
           <Select
             labelId="to-select-label"
             id="to-select"
-            value={to}
-            onChange={handleSecondChange}
+            value={inputValue.to}
+            name="to"
+            onChange={(e) => handleChange(e)}
           >
             <MenuItem value={"Amity"}>Amity</MenuItem>
             <MenuItem value={"Panvel Station"}>Panvel Station</MenuItem>
@@ -115,7 +112,14 @@ const Ride = () => {
             <MenuItem value={"Ajivali"}>Ajivali</MenuItem>
           </Select>
         </FormControl>
-        <TextField id="standard-basic" label="Time : HH/MM PM/AM" variant="standard" style={{marginTop:"20px"}} />
+        <TextField
+          id="standard-basic"
+          label="Time : HH:MM PM/AM"
+          variant="standard"
+          name="leaveTime"
+          style={{ marginTop: "20px" }}
+          onChange={(e) => handleChange(e)}
+        />
         <Button variant="contained" style={ButtonStyle} onClick={handleSubmit}>
           Request
         </Button>
@@ -131,10 +135,5 @@ const Ride = () => {
     </Container>
   );
 };
-
-// export default Ride;
-
-//   );
-// };
 
 export default Ride;

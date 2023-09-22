@@ -11,12 +11,12 @@ export const signUpUser = async (req, res) => {
 
     const newUser = new User({
       username: req.body.username,
-      name: req.body.name,
+      fullName: req.body.fullName,
       password: hash,
       email: req.body.email,
       mobile: req.body.mobile,
       isRider: req.body.isRider,
-      isStudednt: req.body.isStudent,
+      isStudent: req.body.isStudent,
     });
     console.log(newUser);
     await newUser.save();
@@ -25,6 +25,7 @@ export const signUpUser = async (req, res) => {
       msg: "signUp successfull",
     });
   } catch (error) {
+    console.error("Error saving data to MongoDB:", error);
     return res.status(500).json({
       message: "signUp failed",
     });

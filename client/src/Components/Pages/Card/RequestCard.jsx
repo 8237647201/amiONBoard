@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from "@mui/material";
-import '../../../index.css'
+import "../../../index.css";
 const RequestBox = styled(Box)`
   border: 1px solid #000;
   padding: 20px;
@@ -18,7 +18,7 @@ const RequestCard = (props) => {
       <Typography style={{ color: "#000" }}>From: {props.form.from}</Typography>
       <Typography style={{ color: "#000" }}>To: {props.form.to}</Typography>
       <Typography style={{ color: "#000" }}>
-        Leaving Time: {props.form.leavingTime}
+        Leaving Time: {props.form.leaveTime}
       </Typography>
     </RequestBox>
   );

@@ -4,7 +4,7 @@ import BackgroundImage from "../../Image/logo.png";
 import GoogleIcon from "@mui/icons-material/Google"; // Import Google icon
 import "../../../index.css";
 import { signupUser } from "../../API/fetchApi";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -71,8 +71,8 @@ const Data = {
   username: "",
   password: "",
   mobile: "",
-  isRider : false,
-  isStudednt : false
+  isRider: false,
+  isStudent: false,
 };
 
 const SignUP = () => {
@@ -86,16 +86,12 @@ const SignUP = () => {
   });
   const [data, setData] = useState(Data);
 
-  const navigator = Navigate;
+  const navigator = useNavigate();
 
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
@@ -125,7 +121,7 @@ const SignUP = () => {
       password: formData.password,
       mobile: formData.mobile,
     };
-  
+
     // Update the state with the new data
     setData(updatedData);
     console.log(data);
@@ -146,39 +142,39 @@ const SignUP = () => {
             variant="standard"
             name="fullName"
             label="Your Full Name"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
           />
           <TextField
             variant="standard"
             name="email"
             label="Your Email"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
           />
           <TextField
             variant="standard"
             name="username"
             label="Create Username"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
           />
           <TextField
             variant="standard"
             name="password"
             label="Create Password"
             type="password"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
           />
           <TextField
             variant="standard"
             name="confirmPassword"
             label="Confirm Password"
             type="password"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
           />
           <TextField
             variant="standard"
             name="mobile"
             label="Your Mobile No."
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
             value={formData.mobile}
           />
 

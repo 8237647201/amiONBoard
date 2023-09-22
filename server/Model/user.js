@@ -3,7 +3,7 @@ import mongoose, { SchemaType } from "mongoose";
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  name: {
+  fullName: {
     required: true,
     type: String,
   },
@@ -18,24 +18,18 @@ const userSchema = new Schema({
     unique: true,
   },
   mobile: {
-    type: Number,
+    type: String,
     requierd: true,
     min: 10,
     max: 10,
   },
   isRider: {
     type: Boolean,
-    RiderId: {
-      type: Schema.Types.ObjectId,
-      ref: "Rider",
-    },
+   
   },
-  isStudednt: {
+  isStudent: {
     type: Boolean,
-    RiderId: {
-      type: Schema.Types.ObjectId,
-      ref: "Pilen",
-    },
+   
   },
   password: {
     type: String,
