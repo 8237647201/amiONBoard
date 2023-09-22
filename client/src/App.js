@@ -16,6 +16,7 @@ import SignUP from "./Components/Pages/Login/SignUP";
 import Service from "./Components/Pages/Service/Service";
 import Profile from "./Components/Pages/Profile/Profile";
 import About from "./Components/Pages/About/About";
+import Ride from "./Components/Pages/Home/Ride/Ride.jsx";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -50,12 +51,16 @@ function App() {
 
             <Route path="/about" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/about" element={<About />} />
-            // </Route>
+             </Route>
 
             <Route path="/profile" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/profile" element={<Profile />} />
             </Route>
  
+            <Route path="/ride" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+              <Route exact path="/ride" element={<Ride />} />
+            </Route>
+
           </Routes>
           
         </div>

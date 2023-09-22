@@ -17,6 +17,7 @@ export const logginUser = async (data) => {
  };
  //signup user
  export const signupUser = async (data) => {
+  console.log(data)
    try {
      return await axios.post(base.concat("/signUp"), data);
    } catch (error) {

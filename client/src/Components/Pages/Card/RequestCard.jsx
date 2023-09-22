@@ -3,8 +3,8 @@ import '../../../index.css'
 const RequestBox = styled(Box)`
   border: 1px solid #000;
   padding: 20px;
-  margin-top: 0px;
-  width: 50%;
+  margin-top: 20px;
+  width: 90%;
   text-align: center;
   background-color: #fff; /* White background for the request details box */
 `;
