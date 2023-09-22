@@ -5,26 +5,22 @@ import token from "../Model/token.js";
 import dotEnv from "dotenv";
 dotEnv.config();
 
-
 export const signUpUser = async (req, res) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
-  
-    
-   
+
     const newUser = new User({
       username: req.body.username,
       name: req.body.name,
       password: hash,
-      email : req.body.email,
-      mobile : req.body.mobile,
-      isRider : req.body.isRider,
-      isStudednt : req.body.isStudent,
-
+      email: req.body.email,
+      mobile: req.body.mobile,
+      isRider: req.body.isRider,
+      isStudednt: req.body.isStudent,
     });
-    console.log(newUser)
+    console.log(newUser);
     await newUser.save();
-    
+
     return res.status(200).json({
       msg: "signUp successfull",
     });
@@ -54,14 +50,12 @@ export const loginUser = async (req, res) => {
       const newToken = new token({ token: refreshToken });
       await newToken.save();
 
-      return res
-        .status(200)
-        .json({
-          accesToken: accesToken,
-          refreshToken: refreshToken,
-          name: user.name,
-          username: user.username,
-        });
+      return res.status(200).json({
+        accesToken: accesToken,
+        refreshToken: refreshToken,
+        name: user.name,
+        username: user.username,
+      });
     } else {
       return res.status(400).json({ msg: "password does not match" });
     }
