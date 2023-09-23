@@ -60,3 +60,50 @@ export const getAllBooking = async (req, res) => {
     res.status(500).json({ error: "Error while getting data" });
   }
 };
+
+
+export const getUserBooking = async(req,res)=>{
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const response = await Booking.find();
+
+    const activeBookings = response.filter((booking) => 
+    booking.status === 1 && booking.UserId.toString() == user._id.toString()
+  );
+
+    if (activeBookings.length === 0) {
+      return res.status(404).json({ msg: "No active bookings available" });
+    }
+
+    res.status(200).json(activeBookings);
+  } catch (error) {
+    console.error("Error while getting data:", error);
+    res.status(500).json({ error: "Error while getting data" });
+  }
+}
+
+export const deletBooking = async(req, res)=>{
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const response = await Booking.find();
+
+    const activeBookings = response.filter((booking) => 
+    booking.status === 1 && booking.UserId.toString() == user._id.toString()
+  );
+
+    const Response =await Booking.findByIdAndDelete({_id : activeBookings[0]._id})
+
+    res.status(200).json({res: Response,UserDeleted : true});
+  } catch (error) {
+    console.error("Error while getting data:", error);
+    res.status(500).json({ error: "Error while getting data" });
+  }
+}

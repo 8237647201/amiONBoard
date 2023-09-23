@@ -13,7 +13,7 @@ import Home from "./Components/Pages/Home/Home";
 import Header from "./Components/Pages/Header/Header.jsx";
 import Landing from "./Components/Pages/Landing/Landing.jsx";
 import SignUP from "./Components/Pages/Login/SignUP";
-import Service from "./Components/Pages/Service/Service";
+
 import Profile from "./Components/Pages/Profile/Profile";
 import About from "./Components/Pages/About/About";
 import Ride from "./Components/Pages/Home/Ride/Ride.jsx";
@@ -31,7 +31,7 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 
 function App() {
   const [isAuthenticated, isUserAuthenticated] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   return (
     <DataProvider>

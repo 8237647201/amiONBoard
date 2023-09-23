@@ -2,7 +2,7 @@ import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import BackgroundImage from "../../Image/logo.png";
 import { useState, useContext } from "react";
 
-import { logginUser, signupUser } from "../../API/fetchApi.js";
+import { logginUser} from "../../API/fetchApi.js";
 import { DataContext } from "../../DataProvider/Dataprovider.jsx";
 import { useNavigate } from "react-router-dom";
 import { setHeaders, getAccessToken } from "../../utils/common-function.js";

@@ -141,7 +141,7 @@
 //           Ride Requests
 //         </Typography>
 //         {activeBooking.map((item, index) => (
-          
+
 //           <RequestCard key={index} form={item} />
 //         ))}
 //       </Content>
@@ -290,7 +290,7 @@
 //         </Button>
 
 //         {newRequest && (
-//           <RequestCard form={newRequest} /> 
+//           <RequestCard form={newRequest} />
 //         )}
 //       </Sidebar>
 //       <Content>
@@ -319,7 +319,11 @@ import {
 } from "@mui/material";
 import RequestCard from "../../Card/RequestCard.jsx";
 import { DataContext } from "../../../DataProvider/Dataprovider.jsx";
-import { creatBooking, getActiveBooking } from "../../../API/fetchApi.js";
+import {
+  creatBooking,
+  getActiveBooking,
+  getUserBooking,
+} from "../../../API/fetchApi.js";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const Container = styled(Box)({
@@ -365,15 +369,19 @@ const BookingData = {
 };
 
 const Ride = () => {
+  //declaring all the variable
   const [inputValue, setInputValue] = useState(BookingData);
   const { account } = useContext(DataContext);
   const [activeBooking, setActiveBooking] = useState([BookingData]);
   const [newRequest, setNewRequest] = useState(null); // State to store the new request
 
+  //set all the default value
+
   useEffect(() => {
-    // Update the username property of inputValue with account.username
     setInputValue({ ...inputValue, username: account.username, status: 1 });
   }, [account.username]);
+
+  //getting all the Active booking
 
   useEffect(() => {
     const getAllActiveBooking = async () => {
@@ -383,23 +391,35 @@ const Ride = () => {
       }
     };
     getAllActiveBooking();
+
+    if (newRequest == null) {
+      const getTheUserBooking = async () => {
+        const res = await getUserBooking(account.username);
+        if (res) {
+          setNewRequest(res.data[0]);
+        }
+      };
+      getTheUserBooking();
+    }
   }, []);
+
+  // taking input from user
 
   const handleChange = (event) => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value });
   };
 
+  // Submiting the new Request
+
   const handleSubmit = async () => {
     const res = await creatBooking(inputValue);
-    if (res.data.booking) {
-      setNewRequest(inputValue); // Set the new request data in the state
-      window.alert("Already Have an active request");
-    }
-  };
 
-  const handleDelete = (id) => {
-    // Implement your delete logic here
-    // You can use this function to delete an active booking
+    //check if user have already an active booking
+    if (res.data.booking) {
+      window.alert("Already Have an active request");
+    } else {
+      setNewRequest(res.res);
+    }
   };
 
   return (
@@ -451,24 +471,16 @@ const Ride = () => {
         </Button>
 
         {newRequest && (
-          <RequestCard
-            form={newRequest}
-            onDelete={() => setNewRequest(null)}
-            viewMode="detailed"
-          />
+          <RequestCard form={newRequest}  viewMode="detailed" />
         )}
       </Sidebar>
       <Content>
         <Typography variant="h5" gutterBottom>
           Ride Requests
         </Typography>
+
         {activeBooking.map((item, index) => (
-          <RequestCard
-            key={index}
-            form={item}
-            onDelete={() => handleDelete(item.id)} // Pass the unique identifier for each booking
-            viewMode="compact"
-          />
+          <RequestCard key={index} form={item} viewMode="compact" />
         ))}
       </Content>
     </Container>

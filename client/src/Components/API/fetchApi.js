@@ -44,3 +44,23 @@ export const logginUser = async (data) => {
        console.log(error)
     }
   }
+
+  //getting the user request detailed 
+
+  export const getUserBooking = async(username)=>{
+    try {
+      return await axios.get(base.concat(`/getUserBooking/${username}`))
+    } catch (error) {
+       console.log(error)
+    }
+  }
+
+  //deleting user bokking
+
+  export const deletUserBooking= async(username)=>{
+    try {
+      return await axios.delete(base.concat(`/deletuserBooking/${username}`))
+    } catch (error) {
+      console.log(error)
+    }
+  }

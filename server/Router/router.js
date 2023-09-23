@@ -4,6 +4,7 @@ import { authenticateToken } from "../Controller/jwt-controller.js";
 import {
   createbooking,
   getAllBooking,
+  getUserBooking,deletBooking
 } from "../Controller/booking-controller.js";
 import { uploadImage, getImage } from "../Controller/image-contorller.js";
 import upload from "../utils/upload.js";
@@ -23,6 +24,8 @@ Routes.post("/signUp", signUpUser);
 Routes.post("/login", loginUser);
 Routes.post("/booking", authenticateToken,createbooking);
 Routes.get("/getactiveBooking/:username", authenticateToken ,getAllBooking);
+Routes.get("/getUserBooking/:username", authenticateToken ,getUserBooking);
+Routes.delete("/deletuserBooking/:username",authenticateToken,deletBooking)
 Routes.post("/upload", upload.single("file"), uploadImage);
 Routes.get("/getImage", getImage);
 Routes.post("/pillianRegisteration", authenticateToken, createPilean);

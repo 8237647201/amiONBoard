@@ -46,6 +46,8 @@ import {
   styled,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from '@mui/icons-material/Done';
+import {deletUserBooking} from "../../API/fetchApi.js"
 
 const RequestBox = styled(Box)`
   border: 1px solid #000;
@@ -56,20 +58,32 @@ const RequestBox = styled(Box)`
   background-color: #fff; 
 `;
 
-const RequestCard = ({ form, onDelete, viewMode }) => {
+const RequestCard = ({ form, viewMode }) => {
+
+    //deleting the request
+
+    const onDelete = async(username)=>{
+         const res = await deletUserBooking(username)
+        
+    }
+   const onAccept = ()=>{}
+
+
+
+
   if (viewMode === "compact") {
     return (
       <Card style={{ marginBottom: "10px" }}>
         <CardContent>
           <Typography variant="body1" style={{ display: "inline-block" }}>
-            {form.from} --To--  {form.to}
+            {form.from} --To--  {form.to}  -- username -- {form.username}
           </Typography>
           <IconButton
             aria-label="delete"
             style={{ float: "right" }}
-            onClick={() => onDelete(form.id)} // You should pass a unique identifier like form.id for each booking
+            onClick={() => onAccept(form.id)} // You should pass a unique identifier like form.id for each booking
           >
-            <DeleteIcon />
+            <DoneIcon />
           </IconButton>
         </CardContent>
       </Card>
@@ -77,6 +91,13 @@ const RequestCard = ({ form, onDelete, viewMode }) => {
   } else if (viewMode === "detailed") {
     return (
       <RequestBox>
+        <IconButton
+            aria-label="delete"
+            style={{ float: "right" }}
+            onClick={() => onDelete(form.username)} // You should pass a unique identifier like form.id for each booking
+          >
+            <DeleteIcon />
+          </IconButton>
         <Typography variant="h6" style={{ color: "#000" }}>
           Ride Request Details:
         </Typography>
@@ -88,7 +109,7 @@ const RequestCard = ({ form, onDelete, viewMode }) => {
         <Typography style={{ color: "#000" }}>
           CreatedBY: {form.username}
         </Typography>
-        <Typography style={{ color: "#000" }}>Status: {form.status}</Typography>
+        <Typography style={{ color: "#000" }}>Status: {form.status === 1 ? "Active" : form.status}</Typography>
       </RequestBox>
     );
   }
