@@ -405,8 +405,8 @@ const Ride = () => {
   return (
     <Container>
       <Sidebar>
-        <Typography variant="h5" gutterBottom>
-          Ride Request Form
+        <Typography variant="h4" text='bold' gutterBottom>
+          Create Your Request Here!
         </Typography>
         <FormControl fullWidth>
           <InputLabel id="from-select-label">From</InputLabel>
@@ -440,7 +440,7 @@ const Ride = () => {
         </FormControl>
         <TextField
           id="standard-basic"
-          label="Time : HH:MM PM/AM"
+          label="Time : 00.00 PM/AM"
           variant="standard"
           name="leaveTime"
           style={{ marginTop: "20px" }}
@@ -459,8 +459,11 @@ const Ride = () => {
         )}
       </Sidebar>
       <Content>
-        <Typography variant="h5" gutterBottom>
-          Ride Requests
+        <Typography variant="h5" color='blue' gutterBottom>
+          Find Your Perfect Ride Here!
+        </Typography>
+        <Typography variant="h6" color='black' text='bold' gutterBottom>
+          Pending Requests
         </Typography>
         {activeBooking.map((item, index) => (
           <RequestCard
