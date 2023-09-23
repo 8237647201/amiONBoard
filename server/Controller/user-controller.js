@@ -17,6 +17,8 @@ export const signUpUser = async (req, res) => {
       mobile: req.body.mobile,
       isRider: req.body.isRider,
       isStudent: req.body.isStudent,
+      isProfileCompleted : req.body.isProfileCompleted,
+      profilePicture : req.body.profilePicture
     });
     console.log(newUser);
     await newUser.save();
@@ -65,3 +67,32 @@ export const loginUser = async (req, res) => {
     console.log(error);
   }
 };
+
+
+export const upDateUser = async(req,res)=>{
+   try {
+       const user = await User.findById(req.params.id)
+       if(user){
+          const response   = await User.findByIdAndUpdate(req.params.id,{$set:req.body})
+          res.status(200).json({userUpdated :true})
+       }
+   } catch (error) {
+    res.status(500).json({ msg: "Error while login the user" });
+    console.log(error)
+   }
+
+}
+
+
+export const getUser = async(req,res)=>{
+  try {
+      const user = await User.findOne({username: req.params.username})
+      if(user){
+         res.status(200).json(user)
+      }
+  } catch (error) {
+   res.status(500).json({ msg: "Error while login the user" });
+   console.log(error)
+  }
+
+}

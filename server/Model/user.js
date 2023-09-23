@@ -17,6 +17,10 @@ const userSchema = new Schema({
     requierd: true,
     unique: true,
   },
+  profilePicture: {
+    type: String,
+    
+  },
   mobile: {
     type: String,
     requierd: true,
@@ -30,6 +34,13 @@ const userSchema = new Schema({
   isStudent: {
     type: Boolean,
    
+  },
+  isProfileCompleted :{
+    type : Boolean
+  },
+  EnrollNO: {
+    type: String,
+    requierd: true,
   },
   password: {
     type: String,

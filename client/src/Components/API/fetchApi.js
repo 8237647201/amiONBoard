@@ -64,3 +64,47 @@ export const logginUser = async (data) => {
       console.log(error)
     }
   }
+
+  //updatingUser
+
+  export const updateUser = async(id,data)=>{
+    try {
+      return await axios.put(base.concat(`/updateUser/${id}`),data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+//getting user
+  export const getUser=async(username)=>{
+    try {
+      return axios.get(base.concat(`/getUser/${username}`))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //uploading Image
+ export const uploadImage = async(data)=>{
+       try {
+         return axios.post(base.concat("/upload"),data)
+       } catch (error) {
+        console.log(error)
+       }
+ }
+
+ export const CreateRider = async(data)=>{
+  try {
+    return axios.post(base.concat("/riderRegisteration"),data)
+  } catch (error) {
+    console.log(error)
+  }
+ }
+
+ export const getRider = async(username)=>{
+  try {
+     return axios.get(base.concat(`/getRider/${username}`))
+  } catch (error) {
+    console.log(error)
+  }
+ }
+

@@ -1,5 +1,5 @@
 import express from "express";
-import { signUpUser, loginUser } from "../Controller/user-controller.js";
+import { signUpUser, loginUser,upDateUser ,getUser} from "../Controller/user-controller.js";
 import { authenticateToken } from "../Controller/jwt-controller.js";
 import {
   createbooking,
@@ -8,11 +8,7 @@ import {
 } from "../Controller/booking-controller.js";
 import { uploadImage, getImage } from "../Controller/image-contorller.js";
 import upload from "../utils/upload.js";
-import {
-  createPilean,
-  getPilean,
-  updatePilean,
-} from "../Controller/pilean-controller.js";
+
 import {
   createRider,
   getRider,
@@ -22,16 +18,16 @@ const Routes = express.Router();
 
 Routes.post("/signUp", signUpUser);
 Routes.post("/login", loginUser);
+Routes.put("/updateUser/:id",authenticateToken,upDateUser)
+Routes.get("/getUser/:username",authenticateToken,getUser)
 Routes.post("/booking", authenticateToken,createbooking);
 Routes.get("/getactiveBooking/:username", authenticateToken ,getAllBooking);
 Routes.get("/getUserBooking/:username", authenticateToken ,getUserBooking);
 Routes.delete("/deletuserBooking/:username",authenticateToken,deletBooking)
 Routes.post("/upload", upload.single("file"), uploadImage);
-Routes.get("/getImage", getImage);
-Routes.post("/pillianRegisteration", authenticateToken, createPilean);
-Routes.get("/getPillian", authenticateToken,getPilean);
-Routes.put("/updatePillian/:id", authenticateToken,updatePilean);
+Routes.get("/file/:filename", getImage);
+
 Routes.post("/riderRegisteration", authenticateToken,createRider);
-Routes.get("/getRider/:id", authenticateToken,getRider);
+Routes.get("/getRider/:username", authenticateToken,getRider);
 Routes.put("/updateRider/:id", authenticateToken,updateRider);
 export default Routes;

@@ -19,7 +19,7 @@ const RiderSchema = mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    requierd: true,
+    
   },
   mobile :{
     type : String

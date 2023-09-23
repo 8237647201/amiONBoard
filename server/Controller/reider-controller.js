@@ -2,18 +2,20 @@ import Rider from "../Model/riderRegistration.js";
 
 export const createRider = async (req, res) => {
   try {
-    const { username, email, bikeNo, dlUrl, imageUrl } = req.body;
+    const { username, email, BikeNO, DLimage, profilePicture, mobile } =
+      req.body;
 
     const newRider = new Rider({
-      username,
-      email,
-      BikeNO: bikeNo,
-      DlImage: dlUrl,
-      profilePicture: imageUrl,
+      username: username,
+      email: email,
+      BikeNO: BikeNO,
+      DLimage: DLimage,
+      profilePicture: profilePicture,
+      mobile: mobile,
     });
 
     await newRider.save();
-    
+
     return res.status(201).json({ msg: "Rider created successfully" });
   } catch (error) {
     console.error("Error creating Rider:", error);
@@ -23,7 +25,7 @@ export const createRider = async (req, res) => {
 
 export const getRider = async (req, res) => {
   try {
-    const rider = await Rider.findone({email : req.body.params});
+    const rider = await Rider.findOne({ username: req.params.username });
 
     if (!rider) {
       return res.status(404).json({ msg: "Rider not found" });
@@ -38,7 +40,7 @@ export const getRider = async (req, res) => {
 
 export const updateRider = async (req, res) => {
   try {
-    const rider = await Rider.findById({_id :req.params.id});
+    const rider = await Rider.findById({ _id: req.params.id });
 
     if (!rider) {
       return res.status(404).json({ msg: "Rider not found" });

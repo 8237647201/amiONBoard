@@ -73,6 +73,8 @@ const Data = {
   mobile: "",
   isRider: false,
   isStudent: false,
+  isProfileCompleted: false,
+  profilePicture: "",
 };
 
 const SignUP = () => {

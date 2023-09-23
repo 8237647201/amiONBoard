@@ -1,80 +1,147 @@
-import * as React from "react";
-import { useState } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { Box, Button } from "@mui/material";
-import RiderRegisteraion from "./RiderRegisteraion";
-import StudentRegistreration from "./StudentRegistreration";
+import React, { useState, useContext, useEffect } from "react";
 
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { DataContext } from "../../DataProvider/Dataprovider.jsx";
+import { getUser, getRider } from "../../API/fetchApi.js";
+import CreateProfile from "./CreateProfile.jsx";
+import Image from "../../Image/UserProfile.jpeg";
 const Container = {
-  display: "flex",
-  alignItems: "center",
+  width: "100%",
+  minHeight: "100vh",
+  dispaly: "flex",
   justifyContent: "center",
-  background: "#0d264c",
-  height: "100vh",
-  color: "white",
-  textDecoration: "none",
-  color: "black",
-  
 };
 
-const FormStyle = {
-  border : "2px solid white",
-  padding :"70px",
-  borderRadius :"50px",
-  background : "white",
-  color : "black"
+const Box1 = {
+  display: "flex",
+  width: "100%",
+  marginTop: "100px",
+
+  justifyContent: "center",
 };
 
-const Profile = () => {
+const Box3 = {
+  maxWidth: "10%",
+  flex: 1,
 
-    const [profile,setProfile] = useState()
+  marginLeft: "50px",
+  borderRadius: "100%",
+};
+
+const Box4 = {
+  dispaly: "flex",
+  flexDirection: "column",
+  marginLeft: "100px",
+  maxWidth: "50%",
+
+  flex: 1,
+};
+
+const Box5 = {
+  dispaly: "flex",
+  flexDirection: "column",
+  width: "50%",
+  marginLeft: "35%",
+};
+
+const Data = {
+  fullName: "",
+  email: "",
+  username: "",
+  password: "",
+  mobile: "",
+  EnrollNO: "",
+  profilePicture: "",
+  isRider: false,
+  isStudent: false,
+  isProfileCompleted: false,
+};
+const RiderDAta = {
+  username: "",
+  email: "",
+  BikeNO: "",
+  DLimage: "",
+  profilePicture: "",
+  mobile: "",
+};
+function Profile() {
+  const { account } = useContext(DataContext);
+  const [user, setUser] = useState(Data);
+  const [rider,setRider]  = useState(RiderDAta)
+
+  useEffect(() => {
+    const getuser = async () => {
+      const res = await getUser(account.username);
+      if (res) {
+        setUser(res.data);
+      }
+    };
+    getuser();
+  }, [account.username]);
   
-    const handelInput =(e)=>{
-      
-       console.log(profile)
-
-       //calling user update API
+  useEffect(() => {
+    if (user.isRider) {
+      // Only fetch rider data if the user is a rider
+      const fetchRiderData = async () => {
+        try {
+          const res = await getRider(account.username);
+          if (res) {
+            setRider({...rider,...res.data});
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchRiderData();
     }
+  }, [user.isRider, account.username]);
 
-  return (
-    // <Box style={Container}>
-    //   <FormControl  style={FormStyle} >
-    //     <FormLabel 
-    //       id="demo-row-radio-buttons-group-label"
-    //       style={{ fontSize: "30px", color: "black" }}
-    //     >
-    //       Select Profile
-    //     </FormLabel>
-    //     <RadioGroup
-    //       row
-    //       aria-labelledby="demo-row-radio-buttons-group-label"
-    //       name="row-radio-buttons-group"
-    //     >
-    //       <FormControlLabel
-    //         value="student"
-    //         control={<Radio />}
-    //         label="Student"
-    //         name="student"
-    //         onChange={(e)=>setProfile("student")}
-    //       />
-    //       <FormControlLabel
-    //         value="rider"
-    //         control={<Radio style={{ fontSize: "20px" }} />}
-    //         label="Rider"
-    //         name ='rider'
-    //         onChange={(e)=>setProfile("rider")}
-    //       />
-    //     </RadioGroup>
-    //     <Button variant="outlined" style={{marginTop :'20px'}} onClick={handelInput} >Next</Button>
-    //   </FormControl>
-    // </Box>
-    <RiderRegisteraion/>
-    // <StudentRegistreration/>
-  );
-};
+
+  var url = user.profilePicture || Image;
+  var url2 = rider.DLimage||Image
+  if (user && user.isProfileCompleted) {
+    return (
+      <Box style={Container}>
+        <Box style={Box1}>
+          <Box style={Box3}>
+            <label htmlFor="userImage" className="image-upload">
+              <img
+                src={url}
+                style={{ maxHeight: "150px", maxWidth: "150px" }}
+              />
+            </label>
+          </Box>
+          <Box style={Box4}>
+            <Typography> {user.fullName} </Typography>
+            <Typography>{user.username}</Typography>
+          </Box>
+        </Box>
+
+        <Box style={Box5}>
+          {user.isStudent && (
+            <Typography>You Registered as a Student</Typography>
+          )}
+          {user.isRider && <Typography>You Registered as a Rider</Typography>}
+        </Box>
+
+        <Box style={Box5}>
+          <Typography>{user.email}</Typography>
+          <Typography>{user.EnrollNO}</Typography>
+          <Typography>{user.mobile}</Typography>
+        </Box>
+        {user.isRider && (
+          <Box style={Box5}>
+            <Typography>{rider.BikeNO}</Typography>
+             <img src={url2} style={{maxHeight:"200px",maxWidth:"200px"}} />
+          </Box>
+        )}
+
+        <Button style={{ marginLeft: "50%", marginTop: "50px" }}>Update</Button>
+      </Box>
+    );
+  } else {
+    return <CreateProfile user={user} />;
+  }
+}
 
 export default Profile;
