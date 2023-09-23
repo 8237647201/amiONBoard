@@ -21,6 +21,12 @@ const bookingSchema =  new Schema({
       type : Number,
       requierd  :true
     },
+    isRider :{
+      type: Boolean
+    },
+    isStudent:{
+      type:Boolean
+    },
   UserId : [{
     type  : Schema.Types.ObjectId,
     ref : 'user'

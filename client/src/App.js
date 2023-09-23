@@ -33,7 +33,7 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 function App() {
   
   const isLoggedIn = window.localStorage.getItem("loggedIn")
-  const [isAuthenticated, isUserAuthenticated] = useState(isLoggedIn);
+  const [isAuthenticated, isUserAuthenticated] = useState(false);
 
   return (
     <DataProvider>

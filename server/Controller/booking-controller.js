@@ -86,6 +86,8 @@ export const getUserBooking = async(req,res)=>{
   }
 }
 
+
+
 export const deletBooking = async(req, res)=>{
   try {
     const user = await User.findOne({ username: req.params.username });
