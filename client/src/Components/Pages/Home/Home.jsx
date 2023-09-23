@@ -278,7 +278,7 @@ export default function Home() {
       <div style={containerStyle}>
         <h1 style={textStyle}>
           <span style={{ color: "#7a3517", fontSize: "35px" }}>Book your</span>
-          <span style={{ color: "#ed530e", fontSize: "35px" }}> own ride</span>
+          <span style={{ color: "#ed530e", fontSize: "35px" }}> own ride! </span>
         </h1>
       </div>
       <div style={{ width: "100%" }}>

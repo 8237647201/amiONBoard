@@ -39,7 +39,7 @@ const Service = () => {
       <div style={{ position: "relative", bottom: "30px", right: "10px" }}>
         <h1 style={textStyle}>
           <span style={{ color: "black", fontSize: "50px" }}>What's in it</span>
-          <span style={{ color: "#ff9000", fontSize: "50px" }}> for you </span>
+          <span style={{ color: "#ed530e", fontSize: "50px" }}> for you </span>
         </h1>
       </div>
       <div style={divstyle}>
