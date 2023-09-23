@@ -102,6 +102,7 @@ const Login = ({ isUserAuthenticated }) => {
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
       );
+      window.localStorage.setItem("loggedIn",true)
       setHeaders(getAccessToken());
       setAccount({
         username: response.data.username,
@@ -111,6 +112,7 @@ const Login = ({ isUserAuthenticated }) => {
       Navigate("/home");
     } else {
       setError("Something went wrong");
+      window.localStorage.clear()
     }
   };
 

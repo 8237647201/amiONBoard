@@ -7,6 +7,7 @@ import UserIMage from "../../Image/UserProfile.jpeg";
 import { updateUser, uploadImage, CreateRider } from "../../API/fetchApi";
 import AddIcon from "@mui/icons-material/Add";
 import ImageIcon from "@mui/icons-material/Image";
+import { useNavigate } from "react-router-dom";
 const Container = {
   width: "100%",
   minHeight: "100vh",
@@ -78,6 +79,7 @@ const CreateProfile = ({ user }) => {
   const [rider, setRider] = useState(RiderDAta);
   const [file, setFile] = useState("");
   const [file1, setFile1] = useState("");
+  const Navigator = useNavigate();
 
   useEffect(() => {
     const getImage = async () => {
@@ -166,8 +168,23 @@ const CreateProfile = ({ user }) => {
       ) {
         setData({ ...data, isStudent: true, isProfileCompleted: true });
       }
-
-      const res = await updateUser(user._id, data);
+      const updatedData = {
+        ...data,
+        isRider: false,
+        isProfileCompleted: true,
+        username: data.username,
+        mobile: data.mobile,
+        fullName: data.fullName,
+        profilePicture: data.profilePicture,
+        EnrollNO: data.EnrollNO
+      };
+  
+  
+    
+      const res = await updateUser(user._id, updatedData);
+      if(res){
+      Navigator('/')
+      }
     } else if (userType === "rider") {
       if (
         rider.BikeNO &&
@@ -193,6 +210,9 @@ const CreateProfile = ({ user }) => {
       const res = await updateUser(user._id, updatedData);
     
       const response = await CreateRider(rider);
+      if(response){
+        Navigator('/')
+        }
     }
   };
 

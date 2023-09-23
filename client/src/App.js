@@ -17,6 +17,7 @@ import SignUP from "./Components/Pages/Login/SignUP";
 import Profile from "./Components/Pages/Profile/Profile";
 import About from "./Components/Pages/About/About";
 import Ride from "./Components/Pages/Home/Ride/Ride.jsx";
+import CreateProfile from "./Components/Pages/Profile/CreateProfile";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -30,8 +31,9 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 };
 
 function App() {
-  const [isAuthenticated, isUserAuthenticated] = useState(false);
-
+  
+  const isLoggedIn = window.localStorage.getItem("loggedIn")
+  const [isAuthenticated, isUserAuthenticated] = useState(isLoggedIn);
 
   return (
     <DataProvider>
@@ -60,7 +62,7 @@ function App() {
             <Route path="/ride" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/ride" element={<Ride />} />
             </Route>
-
+            
           </Routes>
           
         </div>

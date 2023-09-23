@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, styled } from "@mui/material";
-import { Link } from "react-router-dom";
+import { AppBar, Button, Toolbar, styled } from "@mui/material";
+import { Link,useNavigate } from "react-router-dom";
 
 const Component = styled(AppBar)`
   background: transparent;
@@ -21,6 +21,14 @@ const Container = styled(Toolbar)`
 `;
 
 const Header = () => {
+
+  const Navigator = useNavigate()
+
+  const handelLogout  =()=>{
+    window.localStorage.clear()
+    Navigator('/')
+  }
+
   return (
     <Component>
       <Container>
@@ -28,8 +36,8 @@ const Header = () => {
         <Link to="/about">About</Link>
         {/* <Link to="/contact">Contact</Link> */}
         <Link to="/profile">Profile</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
+        <Button onClick={handelLogout}>LogOut</Button>
+        
       </Container>
     </Component>
   );
