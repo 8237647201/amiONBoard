@@ -76,7 +76,7 @@ const RequestCard = ({ form, viewMode }) => {
       <Card style={{ marginBottom: "10px" }}>
         <CardContent>
           <Typography variant="body1" style={{ display: "inline-block" }}>
-            {form.from} --To--  {form.to}  -- username -- {form.username}
+            {form.from} --To--  {form.to}  -- Created By -- {form.username}
           </Typography>
           <IconButton
             aria-label="delete"

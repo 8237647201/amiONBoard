@@ -475,7 +475,7 @@ const Ride = () => {
         )}
       </Sidebar>
       <Content>
-        <Typography variant="h5" color='blue' gutterBottom>
+        <Typography variant="h5" color='#7a3517' gutterBottom>
           Find Your Perfect Ride Here!
         </Typography>
         <Typography variant="h6" color='black' text='bold' gutterBottom>
