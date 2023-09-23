@@ -8,12 +8,12 @@ const Component = styled(AppBar)`
 `;
 
 const Container = styled(Toolbar)`
-  justify-content: center;
+  justify-content: right;
 
   & > a {
     padding: 20px;
     text-decoration: none;
-    color: grey; 
+    color: #ed530e; 
     font-weight: bold; 
     cursor: pointer;
     font-size: 25px;

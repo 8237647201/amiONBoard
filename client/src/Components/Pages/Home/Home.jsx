@@ -205,44 +205,62 @@
 //     </div>
 //   );
 // }
-import * as React from "react";
+import React, { useState } from "react"; // Import React and useState
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Box from "@mui/material/Box";
-import BackgroundImage from "../../Image/you.jpg";
+import Button from "@mui/material/Button";
+import BackgroundImage from "../../Image/stockimage.jpeg";
 import Service from "../Service/Service";
-import { Link } from "react-router-dom";
+import SavingsIcon from "@mui/icons-material/Savings";
+import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
+import PeopleIcon from "@mui/icons-material/People";
+
+const iconStyle = {
+  fontSize: "50px",
+  color: "#ff9000",
+  alignItems: "center",
+  width: "80%",
+};
 
 const containerStyle = {
   backgroundColor: "white",
   minHeight: "100vh",
-  padding: "20px",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "top",
   justifyContent: "center",
-  width: "100%",
+};
+
+const ButtonStyle = {
+  position: "relative",
+  bottom: "650px",
+  backgroundColor: "orange",
+  color: "black",
+  marginTop: "40px",
+  marginLeft: "43%",
+  height: "45px",
+  width: "220px",
 };
 
 const textStyle = {
+  position: "relative",
+  bottom: "300px",
   textAlign: "center",
-  fontSize: "24px",
-  fontWeight: "bold",
 };
 
-const buttonStyle = {
-  backgroundColor: "grey",
-  color: "blue",
-  padding: "10px 20px", // Added padding
-  borderRadius: "5px", // Added border radius
-  transition: "background-color 0.3s ease", // Added transition for hover effect
+const image_container = {
+  height: "600px",
+  overflow: "hidden",
+  objectFit: "cover",
 };
 
 const buttonHoverStyle = {
-  backgroundColor: "blue", // Change background color on hover
-  color: "white", // Change text color on hover
+  backgroundColor: "#7a3517", 
+  color: "red",
 };
 
-export default function BasicSelect() {
-  const [isHovered, setIsHovered] = React.useState(false);
+export default function Home() {
+  const [isHovered, setIsHovered] = useState(false); // Initialize isHovered state
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -253,36 +271,31 @@ export default function BasicSelect() {
   };
 
   return (
-    <div style={containerStyle}>
-      <div
-        style={{
-          width: "800px",
-          height: "250px",
-          overflow: "hidden",
-          objectFit: "cover",
-        }}
-      >
-        <img src={BackgroundImage} alt="Background" />
+    <>
+      <div style={image_container}>
+        <img src={BackgroundImage} style={{ width: "100%" }} alt="Background" />
       </div>
-      <h1 style={textStyle}>
-        <span style={{ color: "#ff9000" }}>#Book your</span>
-        <span style={{ color: "#ff9000" }}> own ride</span>
-      </h1>
-
-      <Link to="/ride">
-        <button
-          style={{
-            ...buttonStyle,
-            ...(isHovered && buttonHoverStyle), // Apply hover styles
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          Check for Ride
-        </button>
-      </Link>
-
+      <div style={containerStyle}>
+        <h1 style={textStyle}>
+          <span style={{ color: "#7a3517", fontSize: "35px" }}>Book your</span>
+          <span style={{ color: "#ed530e", fontSize: "35px" }}> own ride</span>
+        </h1>
+      </div>
+      <div style={{ width: "100%" }}>
+        <Link to="/ride">
+          <button
+            style={{
+              ...ButtonStyle,
+              ...(isHovered && { ...buttonHoverStyle }), // Apply hover styles
+            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            Check for Ride
+          </button>
+        </Link>
+      </div>
       <Service />
-    </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import SavingsIcon from "@mui/icons-material/Savings";
 import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
 import PeopleIcon from "@mui/icons-material/People";
+
 const containerStyle = {
   backgroundColor: "white",
   minHeight: "100vh",
@@ -9,8 +10,11 @@ const containerStyle = {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  margintop: "80px",
+  marginTop: "20px",
+  position: "relative", // Added
+  bottom: "600px", // Added
 };
+
 const iconStyle = {
   fontSize: "50px",
   color: "#ff9000",
@@ -21,20 +25,20 @@ const iconStyle = {
 const textStyle = {
   textAlign: "center", // Center text within its container
 };
+
 const divstyle = {
   width: "1000px",
   color: "#0d264c",
   display: "flex",
   justifyContent: "space-between",
 };
+
 const Service = () => {
   return (
     <div style={containerStyle}>
       <div style={{ position: "relative", bottom: "30px", right: "10px" }}>
         <h1 style={textStyle}>
-          <span style={{ color: "black", fontSize: "50px" }}>
-            What's in it{" "}
-          </span>
+          <span style={{ color: "black", fontSize: "50px" }}>What's in it</span>
           <span style={{ color: "#ff9000", fontSize: "50px" }}> for you </span>
         </h1>
       </div>
@@ -82,8 +86,8 @@ const Service = () => {
 
           <h1>MAKE FRIENDS</h1>
           <p style={{ color: "black", fontSize: "20px" }}>
-            Get to know unique people from your university and oppurtunity to
-            socialize more and create useful contacts
+            Get to know unique people from your university and opportunity to
+            socialize more and create useful contacts.
           </p>
         </div>
       </div>
