@@ -23,6 +23,8 @@ export const createbooking = async (req, res) => {
         to: req.body.to,
         leaveTime: req.body.leaveTime,
         status: req.body.status,
+        isRider:req.body.isRider,
+        isStudent  :req.body.isStudent,
         UserId: user._id,
       });
       response.save();

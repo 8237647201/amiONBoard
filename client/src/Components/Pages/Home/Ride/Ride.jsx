@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import {
   Box,
@@ -19,6 +18,8 @@ import {
 } from "../../../API/fetchApi.js";
 import {useNavigate} from "react-router-dom"
 
+
+//css handling
 const Container = styled(Box)({
   display: "flex",
   flexDirection: "row",
@@ -53,22 +54,29 @@ const ButtonStyle = {
 
 const InputLabel = styled(Typography)({});
 
+
+//basic template
+
 const BookingData = {
   username: "",
   from: "",
   to: "",
   leaveTime: "",
   status: "",
+  isRider: false,
+  isStudent:false,
 };
 
 const Ride = () => {
   //declaring all the variable
   const [inputValue, setInputValue] = useState(BookingData);
-  const { account } = useContext(DataContext);
+  const { account ,setAccount} = useContext(DataContext);
   const [activeBooking, setActiveBooking] = useState([BookingData]);
   const [newRequest, setNewRequest] = useState(null); // State to store the new request
   const Navigator = useNavigate()
+  const [toggel, setToggel] = useState(false);
   //set all the default value
+
 
   useEffect(() => {
     setInputValue({ ...inputValue, username: account.username, status: 1 });
@@ -94,7 +102,7 @@ const Ride = () => {
       };
       getTheUserBooking();
     }
-  }, []);
+  }, [account.username,toggel]);
 
   // taking input from user
 
@@ -105,15 +113,32 @@ const Ride = () => {
   // Submiting the new Request
 
   const handleSubmit = async () => {
-    const res = await creatBooking(inputValue);
-    window.location.reload();
+
+    const updatedBooking ={
+      ...inputValue,
+      username: inputValue.username,
+      from: inputValue.from,
+      to: inputValue.to,
+      leaveTime: inputValue.leaveTime,
+      status: inputValue.status,
+      isRider: account.isRider,
+      isStudent:account.isStudent,
+    }
+    console.log(account.isRider)
+   
+    console.log(updatedBooking)
+     
+    const res = await creatBooking(updatedBooking);
+
     //check if user have already an active booking
     if (res.data.booking) {
       window.alert("Already Have an active request");
     } else {
       setNewRequest(res.res);
+      setToggel((prevState) => !prevState);
     }
   };
+  console.log(account.username)
 
   return (
     <Container>
@@ -164,7 +189,7 @@ const Ride = () => {
         </Button>
 
         {newRequest && (
-          <RequestCard form={newRequest}  viewMode="detailed" />
+          <RequestCard form={newRequest}  viewMode="detailed" setToggel={setToggel} setNewRequest={ setNewRequest} />
         )}
       </Sidebar>
       <Content>

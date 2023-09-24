@@ -24,12 +24,15 @@ const Header = () => {
 
   const Navigator = useNavigate()
 
-  const handelLogout  =()=>{
+  const handelLogout  =async()=>{
     window.localStorage.clear()
+    window.sessionStorage.clear()
+    window.location.reload()
     Navigator('/')
   }
 
   return (
+
     <Component>
       <Container>
         <Link to="/home">Home</Link>

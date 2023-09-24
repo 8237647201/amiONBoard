@@ -1,6 +1,6 @@
 import "./index.css";
 import Login from "./Components/Pages/Login/Login";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import DataProvider from "./Components/DataProvider/Dataprovider.jsx";
 import {
   BrowserRouter,
@@ -32,8 +32,9 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 
 function App() {
   
-  const isLoggedIn = window.localStorage.getItem("loggedIn")
+  
   const [isAuthenticated, isUserAuthenticated] = useState(false);
+ 
 
   return (
     <DataProvider>
