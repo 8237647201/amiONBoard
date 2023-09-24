@@ -245,6 +245,7 @@ const loginInitialValue = {
 const Login = ({ isUserAuthenticated }) => {
 
   const [login, setLogin] = useState(loginInitialValue);
+<<<<<<< HEAD
 
     const [error, setError] = useState("");
   
@@ -290,6 +291,42 @@ const Login = ({ isUserAuthenticated }) => {
         setError("Something went wrong");
         window.localStorage.clear();
       }
+=======
+  const [error, setError] = useState("");
+  const { setAccount } = useContext(DataContext);
+  const Navigate = useNavigate();
+
+  const toggleState = () => {
+    Navigate("/signup");
+  };
+
+  const onValueChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  const loginUser = async () => {
+    let response = await logginUser(login);
+
+    if (response) {
+      setError("");
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+      setHeaders(getAccessToken());
+      setAccount({
+        username: response.data.username,
+        name: response.data.name,
+      });
+      isUserAuthenticated(true);
+      Navigate("/home");
+    } else {
+      setError("Something went wrong");
+>>>>>>> f917f94c25ea108208c5882b5f0d22c0af7d4003
     }
 
   return (
@@ -317,7 +354,11 @@ const Login = ({ isUserAuthenticated }) => {
                 Login
               </LoginButton>
               <Text style={{ textAlign: "center" }}> OR</Text>
+<<<<<<< HEAD
               <SignUpButton style={{ background: "#003366", color: '#FFA500' }} onClick={toggelState}>
+=======
+              <SignUpButton style={{ background: "#003366", color: '#FFA500' }} onClick={toggleState}>
+>>>>>>> f917f94c25ea108208c5882b5f0d22c0af7d4003
                 Create an Account
               </SignUpButton>
             </Wrapper>
