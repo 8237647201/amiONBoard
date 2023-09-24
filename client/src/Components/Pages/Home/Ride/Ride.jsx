@@ -16,7 +16,7 @@ import {
   getActiveBooking,
   getUserBooking,
 } from "../../../API/fetchApi.js";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 
 //css handling
@@ -54,7 +54,6 @@ const ButtonStyle = {
 
 const InputLabel = styled(Typography)({});
 
-
 //basic template
 
 const BookingData = {
@@ -64,22 +63,27 @@ const BookingData = {
   leaveTime: "",
   status: "",
   isRider: false,
-  isStudent:false,
+  isStudent: false,
 };
 
 const Ride = () => {
   //declaring all the variable
   const [inputValue, setInputValue] = useState(BookingData);
-  const { account ,setAccount} = useContext(DataContext);
+  const { account, setAccount } = useContext(DataContext);
   const [activeBooking, setActiveBooking] = useState([BookingData]);
   const [newRequest, setNewRequest] = useState(null); // State to store the new request
-  const Navigator = useNavigate()
+  const Navigator = useNavigate();
   const [toggel, setToggel] = useState(false);
   //set all the default value
 
-
   useEffect(() => {
-    setInputValue({ ...inputValue, username: account.username, status: 1 });
+    setInputValue({
+      ...inputValue,
+      username: account.username,
+      status: 1,
+      isRider: account.isRider,
+      isStudent: account.isStudent,
+    });
   }, [account.username]);
 
   //getting all the Active booking
@@ -102,7 +106,33 @@ const Ride = () => {
       };
       getTheUserBooking();
     }
-  }, [account.username,toggel]);
+  }, [account.username, toggel]);
+
+  useEffect(() => {
+    const fetchActiveBookings = async () => {
+      try {
+        const res = await getActiveBooking(account.username);
+        if (res) {
+          setActiveBooking(res.data);
+        }else{
+          setActiveBooking([])
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Fetch initially when the component mounts
+    fetchActiveBookings();
+
+    // Set up an interval to fetch active bookings every 3 minutes (180,000 milliseconds)
+    const intervalId = setInterval(fetchActiveBookings, 180000);
+
+    // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [account.username]);
 
   // taking input from user
 
@@ -113,22 +143,7 @@ const Ride = () => {
   // Submiting the new Request
 
   const handleSubmit = async () => {
-
-    const updatedBooking ={
-      ...inputValue,
-      username: inputValue.username,
-      from: inputValue.from,
-      to: inputValue.to,
-      leaveTime: inputValue.leaveTime,
-      status: inputValue.status,
-      isRider: account.isRider,
-      isStudent:account.isStudent,
-    }
-    console.log(account.isRider)
-   
-    console.log(updatedBooking)
-     
-    const res = await creatBooking(updatedBooking);
+    const res = await creatBooking(inputValue);
 
     //check if user have already an active booking
     if (res.data.booking) {
@@ -138,12 +153,12 @@ const Ride = () => {
       setToggel((prevState) => !prevState);
     }
   };
-  console.log(account.username)
+  console.log(account.username);
 
   return (
     <Container>
       <Sidebar>
-        <Typography variant="h4" text='bold' gutterBottom>
+        <Typography variant="h4" text="bold" gutterBottom>
           Create Your Request Here!
         </Typography>
         <FormControl fullWidth>
@@ -189,14 +204,19 @@ const Ride = () => {
         </Button>
 
         {newRequest && (
-          <RequestCard form={newRequest}  viewMode="detailed" setToggel={setToggel} setNewRequest={ setNewRequest} />
+          <RequestCard
+            form={newRequest}
+            viewMode="detailed"
+            setToggel={setToggel}
+            setNewRequest={setNewRequest}
+          />
         )}
       </Sidebar>
       <Content>
-        <Typography variant="h5" color='#7a3517' gutterBottom>
+        <Typography variant="h5" color="#7a3517" gutterBottom>
           Find Your Perfect Ride Here!
         </Typography>
-        <Typography variant="h6" color='black' text='bold' gutterBottom>
+        <Typography variant="h6" color="black" text="bold" gutterBottom>
           Pending Requests
         </Typography>
 

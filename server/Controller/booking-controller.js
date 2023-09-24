@@ -48,9 +48,18 @@ export const getAllBooking = async (req, res) => {
 
     const response = await Booking.find();
 
-    const activeBookings = response.filter((booking) => 
-    booking.status === 1 && booking.UserId.toString() !== user._id.toString()
-  );
+    // const activeBookings = response.filter((booking) => 
+    // booking.status === 1 && booking.UserId.toString() !== user._id.toString() && user.isRider ? booking.isStudent===true : booking.isRider===true
+  // );
+  const activeBookings = response.filter((booking) => {
+    if (user.isRider) {
+      // If the user is a rider, filter bookings where isStudent is true
+      return booking.status === 1 && booking.UserId.toString() !== user._id.toString() && booking.isStudent === true;
+    } else {
+      // If the user is not a rider, filter bookings where isRider is true
+      return booking.status === 1 && booking.UserId.toString() !== user._id.toString() && booking.isRider === true;
+    }
+  });
 
     if (activeBookings.length === 0) {
       return res.status(404).json({ msg: "No active bookings available" });

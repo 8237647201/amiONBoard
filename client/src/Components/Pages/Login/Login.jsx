@@ -91,7 +91,7 @@ const Login = ({ isUserAuthenticated }) => {
 
   const loginUser = async () => {
     let response = await logginUser(login);
-
+    console.log(response)
     if (response) {
       setError("");
       sessionStorage.setItem(
@@ -107,8 +107,8 @@ const Login = ({ isUserAuthenticated }) => {
       setAccount({
         username: response.data.username,
         name: response.data.name,
-        isStudent: response.data.isProfileCompleted && response.data.isStudent,
-        isRider: response.data.isProfileCompleted && response.data.isRider,
+        isStudent:  response.data.isStudent,
+        isRider: response.data.isRider,
       });
       window.sessionStorage.setItem("username",response.data.username)
       isUserAuthenticated(true);

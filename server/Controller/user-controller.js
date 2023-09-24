@@ -58,6 +58,8 @@ export const loginUser = async (req, res) => {
         refreshToken: refreshToken,
         name: user.name,
         username: user.username,
+        isRider:user.isRider,
+        isStudent : user.isStudent
       });
     } else {
       return res.status(400).json({ msg: "password does not match" });
