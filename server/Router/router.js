@@ -16,19 +16,28 @@ import {
 } from "../Controller/reider-controller.js";
 const Routes = express.Router();
 
+//routes for uploading for and handling user signup and login
+
 Routes.post("/signUp", signUpUser);
 Routes.post("/login", loginUser);
 Routes.put("/updateUser/:id",authenticateToken,upDateUser)
 Routes.get("/getUser/:username",authenticateToken,getUser)
+
+// routes for handling booking
+
 Routes.post("/booking", authenticateToken,createbooking);
 Routes.get("/getactiveBooking/:username", authenticateToken ,getAllBooking);
 Routes.get("/getUserBooking/:username", authenticateToken ,getUserBooking);
 Routes.delete("/deletuserBooking/:username",authenticateToken,deletBooking)
 Routes.put("/updateBooking/:id",authenticateToken,updateBooking)
 Routes.get("/bookingAccepter/:username",authenticateToken,getAccepterBooking )
+
+// routes for uploading image
+
 Routes.post("/upload", upload.single("file"), uploadImage);
 Routes.get("/file/:filename", getImage);
 
+// rider registeration routes
 Routes.post("/riderRegisteration", authenticateToken,createRider);
 Routes.get("/getRider/:username", authenticateToken,getRider);
 Routes.put("/updateRider/:id", authenticateToken,updateRider);
