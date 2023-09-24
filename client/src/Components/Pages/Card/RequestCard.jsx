@@ -106,7 +106,7 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
           </IconButton>
         ) : null}
         <Typography variant="h6" style={{ color: "#000" }}>
-          Your Ride Detail
+          Your Ride Details
         </Typography>
         <Typography style={{ color: "#000" }}>From: {form.from}</Typography>
         <Typography style={{ color: "#000" }}>To: {form.to}</Typography>
