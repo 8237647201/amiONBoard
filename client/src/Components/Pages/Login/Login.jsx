@@ -2,7 +2,7 @@ import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import BackgroundImage from "../../Image/logo.png";
 import { useState, useContext } from "react";
 
-import { logginUser} from "../../API/fetchApi.js";
+import { logginUser } from "../../API/fetchApi.js";
 import { DataContext } from "../../DataProvider/Dataprovider.jsx";
 import { useNavigate } from "react-router-dom";
 import { setHeaders, getAccessToken } from "../../utils/common-function.js";
@@ -91,7 +91,7 @@ const Login = ({ isUserAuthenticated }) => {
 
   const loginUser = async () => {
     let response = await logginUser(login);
-
+    console.log(response)
     if (response) {
       setError("");
       sessionStorage.setItem(
@@ -102,15 +102,20 @@ const Login = ({ isUserAuthenticated }) => {
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
       );
+      window.localStorage.setItem("loggedIn", true);
       setHeaders(getAccessToken());
       setAccount({
         username: response.data.username,
         name: response.data.name,
+        isStudent:  response.data.isStudent,
+        isRider: response.data.isRider,
       });
+      window.sessionStorage.setItem("username",response.data.username)
       isUserAuthenticated(true);
       Navigate("/home");
     } else {
       setError("Something went wrong");
+      window.localStorage.clear();
     }
   };
 
@@ -149,5 +154,3 @@ const Login = ({ isUserAuthenticated }) => {
 };
 
 export default Login;
-
-

@@ -1,5 +1,7 @@
+import { getAccessToken } from '../utils/common-function';
 import axios from 'axios'
 const base = "http://localhost:4000";
+
 
 //login user
 
@@ -39,7 +41,9 @@ export const logginUser = async (data) => {
 
   export const getActiveBooking = async(username)=>{
     try {
-       return await axios.get(base.concat(`/getactiveBooking/${username}`)) 
+       return await axios.get(base.concat(`/getactiveBooking/${username}`),{
+        authorization: getAccessToken(),
+      }) 
     } catch (error) {
        console.log(error)
     }
@@ -49,7 +53,9 @@ export const logginUser = async (data) => {
 
   export const getUserBooking = async(username)=>{
     try {
-      return await axios.get(base.concat(`/getUserBooking/${username}`))
+      return await axios.get(base.concat(`/getUserBooking/${username}`),{
+        authorization: getAccessToken(),
+      })
     } catch (error) {
        console.log(error)
     }

@@ -5,6 +5,7 @@ import { DataContext } from "../../DataProvider/Dataprovider.jsx";
 import { getUser, getRider } from "../../API/fetchApi.js";
 import CreateProfile from "./CreateProfile.jsx";
 import Image from "../../Image/UserProfile.jpeg";
+
 const Container = {
   width: "100%",
   minHeight: "100vh",
@@ -97,6 +98,10 @@ function Profile() {
   }, [user.isRider, account.username]);
 
 
+  const handelUpdate=()=>[
+    setUser({...user,isProfileCompleted:false})
+  ]
+
   var url = user.profilePicture || Image;
   var url2 = rider.DLimage||Image
   if (user && user.isProfileCompleted) {
@@ -136,7 +141,7 @@ function Profile() {
           </Box>
         )}
 
-        <Button style={{ marginLeft: "50%", marginTop: "50px" }}>Update</Button>
+        <Button style={{ marginLeft: "50%", marginTop: "50px" }} onClick={handelUpdate} >Update</Button>
       </Box>
     );
   } else {

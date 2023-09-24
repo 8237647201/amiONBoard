@@ -46,7 +46,7 @@ export const loginUser = async (req, res) => {
     let match = await bcrypt.compare(req.body.password, user.password);
     if (match) {
       const accesToken = jwt.sign(user.toJSON(), process.env.SECRET_KEY, {
-        expiresIn: "15m",
+        expiresIn: "20m",
       });
       const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_KEY);
 
@@ -58,6 +58,8 @@ export const loginUser = async (req, res) => {
         refreshToken: refreshToken,
         name: user.name,
         username: user.username,
+        isRider:user.isRider,
+        isStudent : user.isStudent
       });
     } else {
       return res.status(400).json({ msg: "password does not match" });
