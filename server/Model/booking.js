@@ -5,6 +5,9 @@ const bookingSchema =  new Schema({
      type : String,
      requierd : true
     },
+    AccepterUsername :{
+     type :String
+    },
     from : {
         type : String,
         requierd : true

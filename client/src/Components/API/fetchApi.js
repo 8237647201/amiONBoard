@@ -61,6 +61,28 @@ export const logginUser = async (data) => {
     }
   }
 
+
+  //update bookign
+
+  export const updateBooking =async(id,data)=>{
+    try {
+       return await axios.put(base.concat(`/updateBooking/${id}`),data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  // getting status of bookling 
+
+  export const getAccepter = async(username)=>{
+    try {
+      return await axios.get(base.concat(`/bookingAccepter/${username}`))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //deleting user bokking
 
   export const deletUserBooking= async(username)=>{

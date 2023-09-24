@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardContent,
@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
-import { deletUserBooking } from "../../API/fetchApi.js";
-import Ride from "../Home/Ride/Ride.jsx";
+import { deletUserBooking, updateBooking } from "../../API/fetchApi.js";
+import { DataContext } from "../../DataProvider/Dataprovider.jsx";
+
 import { useNavigate } from "react-router-dom";
 
 const RequestBox = styled(Box)`
@@ -22,26 +23,39 @@ const RequestBox = styled(Box)`
   background-color: #fff;
 `;
 
-const RequestCard = ({ form, viewMode, setToggel,setNewRequest }) => {
+const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
   const Navigator = useNavigate();
   //deleting the request
+  const { account } = useContext(DataContext);
 
   const onDelete = async (username) => {
     const res = await deletUserBooking(username);
 
     if (res) {
       setToggel((prevState) => !prevState);
-      setNewRequest(null)
+      setNewRequest(null);
     }
   };
-  const onAccept = () => {};
+  const onAccept = async () => {
+    const onAccept = {
+      AccepterUsername: account.username,
+      from: form.from,
+      to: form.to,
+      status: 2,
+      username: form.username,
+    };
+
+    const response = await updateBooking(form._id, onAccept);
+    if (response) {
+    }
+  };
 
   if (viewMode === "compact") {
     return (
       <Card style={{ marginBottom: "10px" }}>
         <CardContent>
           <Typography variant="body1" style={{ display: "inline-block" }}>
-            {form.from} --To-- {form.to} -- Created By -- {form.username}
+            {form.from} --To-- {form.to} -- Created By -- {form.username}  --- Leaving TIme----   {form.leaveTime}
           </Typography>
           <IconButton
             aria-label="delete"
@@ -76,6 +90,37 @@ const RequestCard = ({ form, viewMode, setToggel,setNewRequest }) => {
         </Typography>
         <Typography style={{ color: "#000" }}>
           Status: {form.status === 1 ? "Active" : form.status}
+        </Typography>
+      </RequestBox>
+    );
+  } else if (viewMode === "accepted") {
+    return (
+      <RequestBox>
+        {form.username === account.username ? (
+          <IconButton
+            aria-label="delete"
+            style={{ float: "right" }}
+            onClick={() => onDelete(form.username)} // You should pass a unique identifier like form.id for each booking
+          >
+            <DeleteIcon />
+          </IconButton>
+        ) : null}
+        <Typography variant="h6" style={{ color: "#000" }}>
+          Your Ride Detail
+        </Typography>
+        <Typography style={{ color: "#000" }}>From: {form.from}</Typography>
+        <Typography style={{ color: "#000" }}>To: {form.to}</Typography>
+        <Typography style={{ color: "#000" }}>
+          Leaving Time: {form.leaveTime}
+        </Typography>
+        <Typography style={{ color: "#000" }}>
+          CreatedBY: {form.username}
+        </Typography>
+        <Typography style={{ color: "#000" }}>
+          Status: {form.status === 2 ? "Accepted" : form.status}
+        </Typography>
+        <Typography style={{ color: "#000" }}>
+          Accepted By: {form.AccepterUsername}
         </Typography>
       </RequestBox>
     );

@@ -15,9 +15,9 @@ import {
   creatBooking,
   getActiveBooking,
   getUserBooking,
+  getAccepter,
 } from "../../../API/fetchApi.js";
 import { useNavigate } from "react-router-dom";
-
 
 //css handling
 const Container = styled(Box)({
@@ -64,6 +64,7 @@ const BookingData = {
   status: "",
   isRider: false,
   isStudent: false,
+  AccepterUsername: "",
 };
 
 const Ride = () => {
@@ -74,6 +75,7 @@ const Ride = () => {
   const [newRequest, setNewRequest] = useState(null); // State to store the new request
   const Navigator = useNavigate();
   const [toggel, setToggel] = useState(false);
+  const [requestAccepted, setRequestAccepted] = useState(BookingData);
   //set all the default value
 
   useEffect(() => {
@@ -100,13 +102,25 @@ const Ride = () => {
     if (newRequest == null) {
       const getTheUserBooking = async () => {
         const res = await getUserBooking(account.username);
+        console.log(res.data);
         if (res) {
-          setNewRequest(res.data[0]);
+          setNewRequest(res.data);
         }
       };
       getTheUserBooking();
     }
+    // Fetch and update requestAccepted when account.username changes
+    const Accepted = async () => {
+      const res = await getAccepter(account.username);
+      if (res) {
+        setNewRequest(res.data);
+      }
+    };
+
+    Accepted();
   }, [account.username, toggel]);
+
+  console.log(newRequest);
 
   useEffect(() => {
     const fetchActiveBookings = async () => {
@@ -114,8 +128,8 @@ const Ride = () => {
         const res = await getActiveBooking(account.username);
         if (res) {
           setActiveBooking(res.data);
-        }else{
-          setActiveBooking([])
+        } else {
+          setActiveBooking([]);
         }
       } catch (error) {
         console.error(error);
@@ -141,16 +155,21 @@ const Ride = () => {
   };
 
   // Submiting the new Request
-
+  console.log(newRequest);
   const handleSubmit = async () => {
-    const res = await creatBooking(inputValue);
-
-    //check if user have already an active booking
-    if (res.data.booking) {
+    if (newRequest) {
       window.alert("Already Have an active request");
     } else {
-      setNewRequest(res.res);
-      setToggel((prevState) => !prevState);
+      const res = await creatBooking(inputValue);
+
+      // check if user have already an active booking
+      if (res.data.booking) {
+        window.alert("Already Have an active request");
+      } else {
+        setNewRequest(res.res);
+        // setToggel((prevState) => !prevState); // You can uncomment this line if needed
+        setToggel((prevState) => !prevState);
+      }
     }
   };
   console.log(account.username);
@@ -202,15 +221,25 @@ const Ride = () => {
         <Button variant="contained" style={ButtonStyle} onClick={handleSubmit}>
           Request
         </Button>
-
-        {newRequest && (
-          <RequestCard
-            form={newRequest}
-            viewMode="detailed"
-            setToggel={setToggel}
-            setNewRequest={setNewRequest}
-          />
-        )}
+        {newRequest &&
+          // Render RequestCard based on the status
+          (newRequest.status === 1 ? (
+            <RequestCard
+              form={newRequest}
+              viewMode="detailed"
+              setToggel={setToggel}
+              setNewRequest={setNewRequest}
+            />
+          ) : (
+            newRequest.status === 2 && (
+              <RequestCard
+                form={newRequest}
+                viewMode="accepted"
+                setToggel={setToggel}
+                setNewRequest={setNewRequest}
+              />
+            )
+          ))}
       </Sidebar>
       <Content>
         <Typography variant="h5" color="#7a3517" gutterBottom>

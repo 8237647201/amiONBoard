@@ -4,7 +4,7 @@ import { authenticateToken } from "../Controller/jwt-controller.js";
 import {
   createbooking,
   getAllBooking,
-  getUserBooking,deletBooking
+  getUserBooking,deletBooking,updateBooking,getAccepterBooking
 } from "../Controller/booking-controller.js";
 import { uploadImage, getImage } from "../Controller/image-contorller.js";
 import upload from "../utils/upload.js";
@@ -24,6 +24,8 @@ Routes.post("/booking", authenticateToken,createbooking);
 Routes.get("/getactiveBooking/:username", authenticateToken ,getAllBooking);
 Routes.get("/getUserBooking/:username", authenticateToken ,getUserBooking);
 Routes.delete("/deletuserBooking/:username",authenticateToken,deletBooking)
+Routes.put("/updateBooking/:id",authenticateToken,updateBooking)
+Routes.get("/bookingAccepter/:username",authenticateToken,getAccepterBooking )
 Routes.post("/upload", upload.single("file"), uploadImage);
 Routes.get("/file/:filename", getImage);
 
