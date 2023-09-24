@@ -1,13 +1,16 @@
+//importing all the dependencies
+
 import * as React from "react";
 import { useState, useEffect } from "react";
-
 import { Box, Button, FormControl, TextField } from "@mui/material";
-
 import UserIMage from "../../Image/UserProfile.jpeg";
 import { updateUser, uploadImage, CreateRider } from "../../API/fetchApi";
 import AddIcon from "@mui/icons-material/Add";
 import ImageIcon from "@mui/icons-material/Image";
 import { useNavigate } from "react-router-dom";
+
+//handling css
+
 const Container = {
   width: "100%",
   minHeight: "100vh",
@@ -49,17 +52,6 @@ const Box5 = {
 
 const Box6 = {};
 
-const StudentInput = {
-  fullName: "",
-  username: "",
-  picture: "",
-  email: "",
-  EnrollNO: "",
-  mobile: "",
-  isProfileCompleted: false,
-  isStudent: false,
-};
-
 const RiderDAta = {
   username: "",
   email: "",
@@ -70,9 +62,7 @@ const RiderDAta = {
 };
 
 const CreateProfile = ({ user }) => {
-  console.log(user);
   const [data, setData] = useState(user);
-
   const [userType, setUserType] = useState("student"); // Default to "student"
   const [showBikeNoInput, setShowBikeNoInput] = useState(false);
   const [usernameLabel, setUsernameLabel] = useState("Username");
@@ -81,6 +71,7 @@ const CreateProfile = ({ user }) => {
   const [file1, setFile1] = useState("");
   const Navigator = useNavigate();
 
+  //for uploading image
   useEffect(() => {
     const getImage = async () => {
       if (file) {
@@ -99,6 +90,7 @@ const CreateProfile = ({ user }) => {
     getImage();
   }, [file]);
 
+  //uploading rider Dl image
   useEffect(() => {
     const getImage = async () => {
       if (file1) {
@@ -120,6 +112,7 @@ const CreateProfile = ({ user }) => {
     setData(user);
   }, [user]);
 
+  //seting the default value for rider
   useEffect(() => {
     if (userType === "rider") {
       // Create a new rider object based on user data
@@ -133,12 +126,17 @@ const CreateProfile = ({ user }) => {
     }
   }, [userType]);
 
+  //handling student data input
   const handelInputChanged = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  // handling rider data input
   const handelRiderInputChanged = (e) => {
     setRider({ ...rider, [e.target.name]: e.target.value });
   };
+
+  //handling radio button
   const handleUserTypeChange = (e) => {
     const value = e.target.value;
     setUserType(value);
@@ -148,15 +146,18 @@ const CreateProfile = ({ user }) => {
     setUsernameLabel(value === "rider" ? "Username-Rider" : "Username");
   };
 
+  //taking user profile input
+
   const handelImage = (e) => {
-    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
+
+  //taking rider dl image input
   const handelImage1 = (e) => {
-    console.log(e.target.files[0]);
     setFile1(e.target.files[0]);
   };
 
+  //submiting the final code
   const submitForm = async () => {
     if (userType === "student") {
       if (
@@ -177,14 +178,14 @@ const CreateProfile = ({ user }) => {
         fullName: data.fullName,
         profilePicture: data.profilePicture,
         EnrollNO: data.EnrollNO,
-        isStudent:true
+        isStudent: true,
       };
-  
-  
-    
+
+      // taking care of update user functionalit
+
       const res = await updateUser(user._id, updatedData);
-      if(res){
-      Navigator('/')
+      if (res) {
+        Navigator("/");
       }
     } else if (userType === "rider") {
       if (
@@ -195,9 +196,8 @@ const CreateProfile = ({ user }) => {
         rider.mobile &&
         rider.username
       ) {
-        
       }
-      
+
       const updatedData = {
         ...data,
         isRider: true,
@@ -207,13 +207,13 @@ const CreateProfile = ({ user }) => {
         fullName: data.fullName,
         profilePicture: rider.profilePicture,
       };
-  
+
       const res = await updateUser(user._id, updatedData);
-    
+
       const response = await CreateRider(rider);
-      if(response){
-        Navigator('/')
-        }
+      if (response) {
+        Navigator("/");
+      }
     }
   };
 

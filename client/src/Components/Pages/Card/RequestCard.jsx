@@ -12,8 +12,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import { deletUserBooking, updateBooking } from "../../API/fetchApi.js";
 import { DataContext } from "../../DataProvider/Dataprovider.jsx";
 
-import { useNavigate } from "react-router-dom";
-
 const RequestBox = styled(Box)`
   border: 1px solid #000;
   padding: 20px;
@@ -24,17 +22,15 @@ const RequestBox = styled(Box)`
 `;
 
 const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
-  const Navigator = useNavigate();
   //deleting the request
   const { account } = useContext(DataContext);
-  const [userEngaged, setuserEngaged] = useState(false);
+
   const onDelete = async (username) => {
     const res = await deletUserBooking(username);
 
     if (res) {
       setToggel((prevState) => !prevState);
       setNewRequest(null);
-      setuserEngaged(false);
     }
   };
   const onAccept = async () => {
@@ -47,6 +43,9 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
     };
 
     const response = await updateBooking(form._id, onAccept);
+    if (response) {
+      setToggel((prevState) => !prevState);
+    }
   };
 
   if (viewMode === "compact") {
@@ -122,6 +121,9 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
         </Typography>
         <Typography style={{ color: "#000" }}>
           Accepted By: {form.AccepterUsername} ---- {form.AccepterMobile}
+        </Typography>
+        <Typography style={{ color: "#000" }}>
+          Your Fair: {form.Fair}
         </Typography>
       </RequestBox>
     );

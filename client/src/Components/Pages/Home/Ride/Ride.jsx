@@ -64,8 +64,9 @@ const BookingData = {
   isRider: false,
   isStudent: false,
   AccepterUsername: "",
-  AccepterMobile : "",
-  UserMobile : "",
+  AccepterMobile: "",
+  UserMobile: "",
+  Fair: "",
 };
 
 const Ride = () => {
@@ -99,12 +100,9 @@ const Ride = () => {
       }
     };
     getAllActiveBooking();
+  }, [account.username, toggel]);
 
- 
-  }, [ account.username]);
-
-
- // getting the userBooking if any
+  // getting the userBooking if any
   useEffect(() => {
     if (newRequest == null) {
       const getTheUserBooking = async () => {
@@ -120,7 +118,7 @@ const Ride = () => {
       };
       getTheUserBooking();
     }
-  }, [account.username, newRequest]);
+  }, [account.username, newRequest, toggel]);
 
   //checking the user accepted request
 
@@ -133,7 +131,7 @@ const Ride = () => {
     };
 
     Accepted();
-  }, [ account.username]);
+  }, [account.username, toggel]);
 
   useEffect(() => {
     const fetchActiveBookings = async () => {
@@ -185,7 +183,7 @@ const Ride = () => {
       }
     }
   };
-  console.log(account.username);
+
 
   return (
     <Container>
@@ -263,7 +261,12 @@ const Ride = () => {
         </Typography>
 
         {activeBooking.map((item, index) => (
-          <RequestCard key={index} form={item} viewMode="compact" />
+          <RequestCard
+            key={index}
+            form={item}
+            viewMode="compact"
+            setToggel={setToggel}
+          />
         ))}
       </Content>
     </Container>

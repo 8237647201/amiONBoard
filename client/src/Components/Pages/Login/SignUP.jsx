@@ -335,7 +335,7 @@ const SignUP = () => {
 
     // Update the state with the new data
     setData(updatedData);
-    console.log(data);
+
     // Handle form submission logic here
     // Send the formData to your API or perform necessary actions
     const response = await signupUser(data);
@@ -394,7 +394,7 @@ const SignUP = () => {
 
           <SignUpButton style={{background:"#003366",color:'#FFA500'}} onClick={handleSubmit}>Submit</SignUpButton>
           <Text style={{ textAlign: "center" }}> OR</Text>
-          <GoogleSignInButton style={{background:"#003366",color:'#FFA500'}}>
+          <GoogleSignInButton style={{background:"#003366",color:'#FFA500'}}onClick={()=>{window.alert("!! it's Under Working")}}>
             <GoogleIcon /> Sign in with Google
           </GoogleSignInButton>
         </Wrapper>
