@@ -13,7 +13,7 @@ const Container = styled(Toolbar)`
   & > a {
     padding: 20px;
     text-decoration: none;
-    color: #ed530e; 
+    color: #EA1179; 
     font-weight: bold; 
     cursor: pointer;
     font-size: 25px;
@@ -39,7 +39,7 @@ const Header = () => {
         <Link to="/about">About</Link>
         {/* <Link to="/contact">Contact</Link> */}
         <Link to="/profile">Profile</Link>
-        <Button onClick={handelLogout}>LogOut</Button>
+        <Button onClick={handelLogout}style={{ fontWeight: 'bold',fontSize: '18px',textDecoration: 'underline', }}>LogOut</Button>
         
       </Container>
     </Component>
