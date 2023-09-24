@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardContent,
@@ -27,13 +27,14 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
   const Navigator = useNavigate();
   //deleting the request
   const { account } = useContext(DataContext);
-
+  const [userEngaged, setuserEngaged] = useState(false);
   const onDelete = async (username) => {
     const res = await deletUserBooking(username);
 
     if (res) {
       setToggel((prevState) => !prevState);
       setNewRequest(null);
+      setuserEngaged(false);
     }
   };
   const onAccept = async () => {
@@ -46,8 +47,6 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
     };
 
     const response = await updateBooking(form._id, onAccept);
-    if (response) {
-    }
   };
 
   if (viewMode === "compact") {
@@ -55,8 +54,10 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
       <Card style={{ marginBottom: "10px" }}>
         <CardContent>
           <Typography variant="body1" style={{ display: "inline-block" }}>
-            {form.from} --To-- {form.to} -- Created By -- {form.username}  --- Leaving TIme----   {form.leaveTime}
+            {form.from} --To-- {form.to} -- Created By -- {form.username} ---
+            Leaving TIme---- {form.leaveTime}
           </Typography>
+
           <IconButton
             aria-label="delete"
             style={{ float: "right" }}
@@ -114,13 +115,13 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
           Leaving Time: {form.leaveTime}
         </Typography>
         <Typography style={{ color: "#000" }}>
-          CreatedBY: {form.username}
+          CreatedBY: {form.username} --- {form.UserMobile}
         </Typography>
         <Typography style={{ color: "#000" }}>
           Status: {form.status === 2 ? "Accepted" : form.status}
         </Typography>
         <Typography style={{ color: "#000" }}>
-          Accepted By: {form.AccepterUsername}
+          Accepted By: {form.AccepterUsername} ---- {form.AccepterMobile}
         </Typography>
       </RequestBox>
     );
