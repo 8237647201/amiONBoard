@@ -26,6 +26,8 @@ export const createbooking = async (req, res) => {
         isRider: req.body.isRider,
         isStudent: req.body.isStudent,
         AccepterUsername: req.body.AccepterUsername,
+        AccepterMobile : req.body.AccepterMobile,
+        UserMobile : req.body.UserMobile,
         UserId: user._id,
       });
       response.save();
@@ -40,6 +42,9 @@ export const createbooking = async (req, res) => {
   }
 };
 
+
+//fetching all the active booking
+
 export const getAllBooking = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
@@ -49,9 +54,7 @@ export const getAllBooking = async (req, res) => {
 
     const response = await Booking.find();
 
-    // const activeBookings = response.filter((booking) =>
-    // booking.status === 1 && booking.UserId.toString() !== user._id.toString() && user.isRider ? booking.isStudent===true : booking.isRider===true
-    // );
+    
     const activeBookings = response.filter((booking) => {
       if (user.isRider) {
         // If the user is a rider, filter bookings where isStudent is true
@@ -97,6 +100,8 @@ export const getUserBooking = async (req, res) => {
   }
 };
 
+// check for user accepted request
+
 export const getAccepterBooking = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
@@ -112,6 +117,8 @@ export const getAccepterBooking = async (req, res) => {
     res.status(500).json({ error: "Error while getting data" });
   }
 };
+
+//deleting booking request
 
 export const deletBooking = async (req, res) => {
   try {
@@ -149,10 +156,28 @@ export const updateBooking = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
     const user = await User.findOne({ username: req.body.AccepterUsername });
+  const createdBy = await User.findOne({username : req.body.username})
+     const oldBooking = await Booking.findOne({AccepterUsername : user.username})
+
+     if(oldBooking){
+       return res.status(422).json({msg:"User already have an booking"})
+     }
+   
+     const prev = await Booking.findOne({username:user.username})
+
+     if(prev){
+      return res.status(422).json({msg : "first delet uor previous request"})
+     }
+
     if (booking && user) {
+      booking.AccepterMobile = user.mobile;
+      booking.UserMobile = createdBy.mobile;
       const response = await Booking.findByIdAndUpdate(booking._id, {
         $set: req.body,
       });
+
+      // Update the booking document in the database
+      await booking.save();
       res.status(200).json({ message: "bookingupdated" });
     }
   } catch (error) {

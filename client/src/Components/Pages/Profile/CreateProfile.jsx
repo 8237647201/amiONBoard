@@ -176,7 +176,8 @@ const CreateProfile = ({ user }) => {
         mobile: data.mobile,
         fullName: data.fullName,
         profilePicture: data.profilePicture,
-        EnrollNO: data.EnrollNO
+        EnrollNO: data.EnrollNO,
+        isStudent:true
       };
   
   

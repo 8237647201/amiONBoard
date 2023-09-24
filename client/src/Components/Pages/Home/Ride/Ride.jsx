@@ -18,7 +18,6 @@ import {
   getAccepter,
 } from "../../../API/fetchApi.js";
 
-
 //css handling
 const Container = styled(Box)({
   display: "flex",
@@ -65,6 +64,8 @@ const BookingData = {
   isRider: false,
   isStudent: false,
   AccepterUsername: "",
+  AccepterMobile : "",
+  UserMobile : "",
 };
 
 const Ride = () => {
@@ -99,9 +100,14 @@ const Ride = () => {
     };
     getAllActiveBooking();
 
+ 
+  }, [ account.username]);
+
+
+ // getting the userBooking if any
+  useEffect(() => {
     if (newRequest == null) {
       const getTheUserBooking = async () => {
-        
         try {
           const res = await getUserBooking(account.username);
           if (res && res.data) {
@@ -114,12 +120,11 @@ const Ride = () => {
       };
       getTheUserBooking();
     }
-    // Fetch and update requestAccepted when account.username changes
-  
-  }, [account.username, toggel]);
+  }, [account.username, newRequest]);
 
+  //checking the user accepted request
 
-  useEffect(()=>{
+  useEffect(() => {
     const Accepted = async () => {
       const res = await getAccepter(account.username);
       if (res) {
@@ -128,9 +133,7 @@ const Ride = () => {
     };
 
     Accepted();
-  },[account.username,toggel])
-
-  console.log(newRequest);
+  }, [ account.username]);
 
   useEffect(() => {
     const fetchActiveBookings = async () => {

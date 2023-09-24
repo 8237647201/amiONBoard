@@ -8,6 +8,12 @@ const bookingSchema =  new Schema({
     AccepterUsername :{
      type :String
     },
+    AccepterMobile :{
+      type : String
+    },
+    UserMobile:{
+      type :String
+    },
     from : {
         type : String,
         requierd : true
