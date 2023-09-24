@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
   Typography,
   IconButton,
+  Button,
   Box,
   styled,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
-import { deletUserBooking, updateBooking } from "../../API/fetchApi.js";
-import { DataContext } from "../../DataProvider/Dataprovider.jsx";
-
+import { deletUserBooking } from "../../API/fetchApi.js";
+import Ride from "../Home/Ride/Ride.jsx";
 import { useNavigate } from "react-router-dom";
 
 const RequestBox = styled(Box)`
@@ -23,32 +23,19 @@ const RequestBox = styled(Box)`
   background-color: #fff;
 `;
 
-const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
+const RequestCard = ({ form, viewMode, setToggel,setNewRequest }) => {
   const Navigator = useNavigate();
   //deleting the request
-  const { account } = useContext(DataContext);
 
   const onDelete = async (username) => {
     const res = await deletUserBooking(username);
 
     if (res) {
       setToggel((prevState) => !prevState);
-      setNewRequest(null);
+      setNewRequest(null)
     }
   };
-  const onAccept = async () => {
-    const onAccept = {
-      AccepterUsername: account.username,
-      from: form.from,
-      to: form.to,
-      status: 2,
-      username: form.username,
-    };
-
-    const response = await updateBooking(form._id, onAccept);
-    if (response) {
-    }
-  };
+  const onAccept = () => {};
 
   if (viewMode === "compact") {
     return (
@@ -57,13 +44,14 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
           <Typography variant="body1" style={{ display: "inline-block" }}>
             {form.from} --To-- {form.to} -- Created By -- {form.username}  --- Leaving TIme----   {form.leaveTime}
           </Typography>
-          <IconButton
-            aria-label="delete"
+          <Button
+            variant="contained"
+            color="primary"
             style={{ float: "right" }}
-            onClick={() => onAccept(form.id)} // You should pass a unique identifier like form.id for each booking
+            onClick={() => {}}
           >
-            <DoneIcon />
-          </IconButton>
+            Book
+          </Button>
         </CardContent>
       </Card>
     );
@@ -73,12 +61,12 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
         <IconButton
           aria-label="delete"
           style={{ float: "right" }}
-          onClick={() => onDelete(form.username)} // You should pass a unique identifier like form.id for each booking
+          onClick={() => onDelete(form.username)}
         >
           <DeleteIcon />
         </IconButton>
         <Typography variant="h6" style={{ color: "#000" }}>
-          Ride Request Details:
+          Your Request Details:
         </Typography>
         <Typography style={{ color: "#000" }}>From: {form.from}</Typography>
         <Typography style={{ color: "#000" }}>To: {form.to}</Typography>
@@ -86,11 +74,19 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
           Leaving Time: {form.leaveTime}
         </Typography>
         <Typography style={{ color: "#000" }}>
-          CreatedBY: {form.username}
+          Created BY: {form.username}
         </Typography>
         <Typography style={{ color: "#000" }}>
           Status: {form.status === 1 ? "Active" : form.status}
         </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: "10px" }}
+          onClick={() => {}}
+        >
+          Book
+        </Button>
       </RequestBox>
     );
   } else if (viewMode === "accepted") {
@@ -128,3 +124,4 @@ const RequestCard = ({ form, viewMode, setToggel, setNewRequest }) => {
 };
 
 export default RequestCard;
+
