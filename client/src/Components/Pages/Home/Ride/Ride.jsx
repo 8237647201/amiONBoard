@@ -17,7 +17,7 @@ import {
   getUserBooking,
   getAccepter,
 } from "../../../API/fetchApi.js";
-import { useNavigate } from "react-router-dom";
+
 
 //css handling
 const Container = styled(Box)({
@@ -70,12 +70,12 @@ const BookingData = {
 const Ride = () => {
   //declaring all the variable
   const [inputValue, setInputValue] = useState(BookingData);
-  const { account, setAccount } = useContext(DataContext);
+  const { account } = useContext(DataContext);
   const [activeBooking, setActiveBooking] = useState([BookingData]);
   const [newRequest, setNewRequest] = useState(null); // State to store the new request
-  const Navigator = useNavigate();
+
   const [toggel, setToggel] = useState(false);
-  const [requestAccepted, setRequestAccepted] = useState(BookingData);
+
   //set all the default value
 
   useEffect(() => {
@@ -101,15 +101,25 @@ const Ride = () => {
 
     if (newRequest == null) {
       const getTheUserBooking = async () => {
-        const res = await getUserBooking(account.username);
-        console.log(res.data);
-        if (res) {
-          setNewRequest(res.data);
+        
+        try {
+          const res = await getUserBooking(account.username);
+          if (res && res.data) {
+            console.log(res.data);
+            setNewRequest(res.data);
+          }
+        } catch (error) {
+          console.error("Error fetching user booking:", error);
         }
       };
       getTheUserBooking();
     }
     // Fetch and update requestAccepted when account.username changes
+  
+  }, [account.username, toggel]);
+
+
+  useEffect(()=>{
     const Accepted = async () => {
       const res = await getAccepter(account.username);
       if (res) {
@@ -118,7 +128,7 @@ const Ride = () => {
     };
 
     Accepted();
-  }, [account.username, toggel]);
+  },[account.username,toggel])
 
   console.log(newRequest);
 
@@ -167,7 +177,7 @@ const Ride = () => {
         window.alert("Already Have an active request");
       } else {
         setNewRequest(res.res);
-        // setToggel((prevState) => !prevState); // You can uncomment this line if needed
+
         setToggel((prevState) => !prevState);
       }
     }
