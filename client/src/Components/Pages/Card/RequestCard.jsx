@@ -47,8 +47,7 @@ import {
   styled,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DoneIcon from '@mui/icons-material/Done';
-import {deletUserBooking} from "../../API/fetchApi.js"
+import { deletUserBooking } from "../../API/fetchApi.js";
 
 const RequestBox = styled(Box)`
   border: 1px solid #000;
@@ -60,17 +59,10 @@ const RequestBox = styled(Box)`
 `;
 
 const RequestCard = ({ form, viewMode }) => {
-
-    //deleting the request
-
-    const onDelete = async(username)=>{
-         const res = await deletUserBooking(username)
-        
-    }
-   const onAccept = ()=>{}
-
-
-
+  // Deleting the request
+  const onDelete = async (username) => {
+    const res = await deletUserBooking(username);
+  };
 
   if (viewMode === "compact") {
     return (
@@ -83,7 +75,7 @@ const RequestCard = ({ form, viewMode }) => {
             variant="contained"
             color="primary"
             style={{ float: "right" }}
-            onClick={onBook}
+            onClick={() => {}}
           >
             Book
           </Button>
@@ -94,12 +86,12 @@ const RequestCard = ({ form, viewMode }) => {
     return (
       <RequestBox>
         <IconButton
-            aria-label="delete"
-            style={{ float: "right" }}
-            onClick={() => onDelete(form.username)} // You should pass a unique identifier like form.id for each booking
-          >
-            <DeleteIcon />
-          </IconButton>
+          aria-label="delete"
+          style={{ float: "right" }}
+          onClick={() => onDelete(form.username)}
+        >
+          <DeleteIcon />
+        </IconButton>
         <Typography variant="h6" style={{ color: "#000" }}>
           Your Request Details:
         </Typography>
@@ -114,10 +106,18 @@ const RequestCard = ({ form, viewMode }) => {
         <Typography style={{ color: "#000" }}>
           Status: {form.status === 1 ? "Active" : form.status}
         </Typography>
-        <Typography style={{ color: "#000" }}>Status: {form.status === 1 ? "Active" : form.status}</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: "10px" }}
+          onClick={() => {}}
+        >
+          Book
+        </Button>
       </RequestBox>
     );
   }
 };
 
 export default RequestCard;
+
