@@ -3,10 +3,23 @@ import jwt from "jsonwebtoken";
 import User from "../Model/user.js";
 import token from "../Model/token.js";
 import dotEnv from "dotenv";
+import { validate } from "email-validator";
 dotEnv.config();
 
 export const signUpUser = async (req, res) => {
   try {
+    // checking the correct formate of email
+    if (!validate(req.body.email)) {
+      return res.status(401).json({ msg: "Email format is not valid" });
+    }
+
+    if (!validatePassword(req.body.password)) {
+      return res
+        .status(401)
+        .json({
+          msg: "Password should have at least one number and one special character",
+        });
+    }
     const hash = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new User({
@@ -17,8 +30,8 @@ export const signUpUser = async (req, res) => {
       mobile: req.body.mobile,
       isRider: req.body.isRider,
       isStudent: req.body.isStudent,
-      isProfileCompleted : req.body.isProfileCompleted,
-      profilePicture : req.body.profilePicture
+      isProfileCompleted: req.body.isProfileCompleted,
+      profilePicture: req.body.profilePicture,
     });
     console.log(newUser);
     await newUser.save();
@@ -58,8 +71,8 @@ export const loginUser = async (req, res) => {
         refreshToken: refreshToken,
         name: user.name,
         username: user.username,
-        isRider:user.isRider,
-        isStudent : user.isStudent
+        isRider: user.isRider,
+        isStudent: user.isStudent,
       });
     } else {
       return res.status(400).json({ msg: "password does not match" });
@@ -70,31 +83,44 @@ export const loginUser = async (req, res) => {
   }
 };
 
-
-export const upDateUser = async(req,res)=>{
-   try {
-       const user = await User.findById(req.params.id)
-       if(user){
-          const response   = await User.findByIdAndUpdate(req.params.id,{$set:req.body})
-          res.status(200).json({userUpdated :true})
-       }
-   } catch (error) {
-    res.status(500).json({ msg: "Error while login the user" });
-    console.log(error)
-   }
-
-}
-
-
-export const getUser = async(req,res)=>{
+export const upDateUser = async (req, res) => {
   try {
-      const user = await User.findOne({username: req.params.username})
-      if(user){
-         res.status(200).json(user)
-      }
+    const user = await User.findById(req.params.id);
+    if (user) {
+      const response = await User.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+      res.status(200).json({ userUpdated: true });
+    }
   } catch (error) {
-   res.status(500).json({ msg: "Error while login the user" });
-   console.log(error)
+    res.status(500).json({ msg: "Error while login the user" });
+    console.log(error);
   }
+};
 
-}
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (user) {
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "Error while login the user" });
+    console.log(error);
+  }
+};
+
+//checking password
+const validatePassword = (password) => {
+  // Check for at least one character
+  const hasCharacter = /[a-zA-Z]/.test(password);
+
+  // Check for at least one number
+  const hasNumber = /\d/.test(password);
+
+  // Check for at least one special character
+  const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+
+  // Return true if all conditions are met
+  return hasCharacter && hasNumber && hasSpecialChar;
+};
