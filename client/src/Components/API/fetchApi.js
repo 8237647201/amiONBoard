@@ -65,6 +65,7 @@ export const logginUser = async (data) => {
   //update bookign
 
   export const updateBooking =async(id,data)=>{
+    console.log(data)
     try {
        return await axios.put(base.concat(`/updateBooking/${id}`),data)
     } catch (error) {
