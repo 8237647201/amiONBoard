@@ -1,55 +1,55 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import BackgroundImage from "../../Image/stockimage.jpeg";
-import { useState } from "react";
 import Service from "../Service/Service";
 import { Link } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
 
-const iconStyle = {
-  fontSize: "50px",
-  color: "#ff9000",
-  alignItems: "center",
-  width: "80%",
-};
-const divstyle = {
-  width: "1000px",
-  color: "#0d264c",
-  display: "flex",
-  justifyContent: "space-between",
-};
+import Img1 from "../../Image/stockimage.jpeg";
+import Img2 from "../../Image/home1.jpg";
+import Img3 from "../../Image/home2.jpg";
+
 const containerStyle = {
-  maxHeight: "8vh",
   display: "flex",
   flexDirection: "column",
-  marginBottom: "0px",
-  padding: "0px",
-  alignItems: "top",
-  justifyContent: "center",
+  alignItems: "center",
+  justifyContent: "start",
+  margin: "20px 0 10px 0"
 };
+
+const BtnContainer = {
+  display: "flex",
+  width: "100%",
+  justifyContent: "center",
+  margin: "0 0 50px 0"
+}
+
 const ButtonStyle = {
   marginBottom: "0px",
   backgroundColor: "white",
   color: "#ff9000",
-  marginTop: "90px",
-  marginLeft: "43%",
   height: "45px",
-  width: "230px",
+  width: "250px",
   transition: "background-color 0.3s, transform 0.3s", // Add transition for smooth animation
   transformOrigin: "center",
   hoverButtonStyle: "transform: 'scale(2.0)'",
 };
 
 const textStyle = {
-  marginTop: "100px",
-  marginBottom: "20px",
+  width: "50%",
   textAlign: "center",
   animation: "moveRight 3s infinite",
 };
 const image_container = {
-  height: "550px",
   overflow: "hidden",
-  object_fit: "cover",
+  width: "100%",
 };
+
+const slideImg = {
+  height: "500px",
+  width: "100%",
+  objectFit: "cover",
+}
+
 const animatedTextStyle = {
   color: "black",
   animation: "moveRight 2s infinite", // Animation name, duration, and repetition
@@ -76,7 +76,26 @@ export default function BasicSelect() {
       </div>
       <>
         <div style={image_container}>
-          <img src={BackgroundImage} style={{ width: "100%" }} />
+          <Carousel fade interval={3000} controls={false}>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                style={slideImg}
+                src={Img1} alt="img1" />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                style={slideImg}
+                src={Img2} alt="img2" />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                style={slideImg}
+                src={Img3} alt="img3" />
+            </Carousel.Item>
+          </Carousel>
         </div>
         <div style={containerStyle}>
           <h1 style={textStyle}>
@@ -90,7 +109,7 @@ export default function BasicSelect() {
           </h1>
           <h2 style={{marginLeft:"35%",fontSize:'30px',color:"#003366"}}>JOIN THE #DUORIDE COMMUNITY </h2>
         </div>
-        <div style={{ width: "100%" }}>
+        <div style={BtnContainer}>
           <Link to="/Ride">
             <Button
               variant="contained"
@@ -109,7 +128,7 @@ export default function BasicSelect() {
           </Link>
         </div>
 
-        <Service style={{ marginTop: "0" }} />
+        <Service />
       </>
     </>
   );

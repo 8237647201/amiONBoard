@@ -3,38 +3,51 @@ import jwt from "jsonwebtoken";
 import User from "../Model/user.js";
 import token from "../Model/token.js";
 import dotEnv from "dotenv";
-import { validate } from "email-validator";
+import UserData from "../classes/User.js";
 dotEnv.config();
 
 export const signUpUser = async (req, res) => {
   try {
+    const newUser = new UserData(
+      req.body.username,
+      req.body.email,
+      req.body.password,
+      req.body.fullName,
+      req.body.isRider,
+      req.body.isStudent,
+      req.body.profilePicture,
+      req.body.mobile,
+      req.body.isProfileCompleted
+    );
+    console.log(newUser.password);
     // checking the correct formate of email
-    if (!validate(req.body.email)) {
+    if (!newUser.emailValidator()) {
+      console.log("cal");
       return res.status(401).json({ msg: "Email format is not valid" });
     }
 
-    if (!validatePassword(req.body.password)) {
-      return res
-        .status(401)
-        .json({
-          msg: "Password should have at least one number and one special character",
-        });
+    if (!newUser.validatePassword0()) {
+      console.log("cal;");
+      return res.status(401).json({
+        msg: "Password should have at least one number and one special character",
+      });
     }
-    const hash = await bcrypt.hash(req.body.password, 10);
 
-    const newUser = new User({
-      username: req.body.username,
-      fullName: req.body.fullName,
-      password: hash,
-      email: req.body.email,
-      mobile: req.body.mobile,
-      isRider: req.body.isRider,
-      isStudent: req.body.isStudent,
-      isProfileCompleted: req.body.isProfileCompleted,
-      profilePicture: req.body.profilePicture,
+    await newUser.encryptPassword();
+
+    const user = User({
+      username: newUser.username,
+      fullName: newUser.fullName,
+      password: newUser.password,
+      email: newUser.email,
+      mobile: newUser.mobile,
+      isRider: newUser.isRider,
+      isStudent: newUser.isStudent,
+      isProfileCompleted: newUser.isProfileCompleted,
+      profilePicture: newUser.profilePicture,
     });
-    console.log(newUser);
-    await newUser.save();
+
+    await user.save();
 
     return res.status(200).json({
       msg: "signUp successfull",
@@ -56,23 +69,40 @@ export const loginUser = async (req, res) => {
   }
 
   try {
-    let match = await bcrypt.compare(req.body.password, user.password);
-    if (match) {
-      const accesToken = jwt.sign(user.toJSON(), process.env.SECRET_KEY, {
-        expiresIn: "20m",
-      });
-      const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_KEY);
+    const User = new UserData(
+      user.username,
+      user.email,
+      user.password,
+      user.fullName,
+      user.isRider,
+      user.isStudent,
+      user.profilePicture,
+      user.mobile,
+      user.isProfileCompleted
+    );
 
-      const newToken = new token({ token: refreshToken });
+    // let match = await bcrypt.compare(req.body.password, user.password);
+
+    if (await User.validatePassword(req.body.password)) {
+
+      //generating accesToken
+      const accesToken = await User.getAccesToken(req.body.password);
+      const refreshToken = await User.getRefreshToken(req.body.password);
+
+      //saving token
+
+      const newToken = new token({
+        token: refreshToken,
+      });
       await newToken.save();
 
       return res.status(200).json({
         accesToken: accesToken,
         refreshToken: refreshToken,
-        name: user.name,
-        username: user.username,
-        isRider: user.isRider,
-        isStudent: user.isStudent,
+        name: User.name,
+        username: User.username,
+        isRider: User.isRider,
+        isStudent: User.isStudent,
       });
     } else {
       return res.status(400).json({ msg: "password does not match" });
@@ -108,19 +138,4 @@ export const getUser = async (req, res) => {
     res.status(500).json({ msg: "Error while login the user" });
     console.log(error);
   }
-};
-
-//checking password
-const validatePassword = (password) => {
-  // Check for at least one character
-  const hasCharacter = /[a-zA-Z]/.test(password);
-
-  // Check for at least one number
-  const hasNumber = /\d/.test(password);
-
-  // Check for at least one special character
-  const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
-
-  // Return true if all conditions are met
-  return hasCharacter && hasNumber && hasSpecialChar;
 };

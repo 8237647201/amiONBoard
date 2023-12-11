@@ -242,7 +242,7 @@ const CreateProfile = ({ user }) => {
           <Box style={Box4}>
             <TextField
               id="standard-basic"
-              label="FullNAme"
+              label="FullName"
               variant="standard"
               fullWidth="true"
               name="fullName"
