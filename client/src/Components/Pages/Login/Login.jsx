@@ -1,7 +1,7 @@
 
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import BackgroundImage from "../../Image/logowithoutbg.png";
-import Bg1 from "../../Image/bluryou.jpeg.jpg";
+import Bg1 from "../../Image/bluryou.jpg";
 import { useState, useContext } from "react";
 import { logginUser } from "../../API/fetchApi.js";
 import { DataContext } from "../../DataProvider/Dataprovider.jsx";
@@ -91,51 +91,51 @@ const Login = ({ isUserAuthenticated }) => {
 
   const [login, setLogin] = useState(loginInitialValue);
 
-    const [error, setError] = useState("");
-  
-    const { setAccount } = useContext(DataContext);
-  
-    const Navigate = useNavigate();
-  
-    const toggelState = () => {
-      Navigate("/signup");
-    };
-  
-    const onValueChange = (e) => {
-      setLogin({ ...login, [e.target.name]: e.target.value });
-    };
+  const [error, setError] = useState("");
+
+  const { setAccount } = useContext(DataContext);
+
+  const Navigate = useNavigate();
+
+  const toggelState = () => {
+    Navigate("/signup");
+  };
+
+  const onValueChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
 
 
 
-    const loginUser = async () => {
-      let response = await logginUser(login);
-     
-      if (response) {
-        setError("");
-        sessionStorage.setItem(
-          "accessToken",
-          `Bearer ${response.data.accesToken}`
-        );
-        sessionStorage.setItem(
-          "refreshToken",
-          `Bearer ${response.data.refreshToken}`
-        );
-        window.localStorage.setItem("loggedIn", true);
-        setHeaders(getAccessToken());
-        setAccount({
-          username: response.data.username,
-          name: response.data.name,
-          isStudent:  response.data.isStudent,
-          isRider: response.data.isRider,
-        });
-        window.sessionStorage.setItem("username",response.data.username)
-        isUserAuthenticated(true);
-        Navigate("/home");
-      } else {
-        setError("Something went wrong");
-        window.localStorage.clear();
-      }
+  const loginUser = async () => {
+    let response = await logginUser(login);
+
+    if (response) {
+      setError("");
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accesToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+      window.localStorage.setItem("loggedIn", true);
+      setHeaders(getAccessToken());
+      setAccount({
+        username: response.data.username,
+        name: response.data.name,
+        isStudent: response.data.isStudent,
+        isRider: response.data.isRider,
+      });
+      window.sessionStorage.setItem("username", response.data.username)
+      isUserAuthenticated(true);
+      Navigate("/home");
+    } else {
+      setError("Something went wrong");
+      window.localStorage.clear();
     }
+  }
 
   return (
     <>
@@ -151,6 +151,7 @@ const Login = ({ isUserAuthenticated }) => {
                 name="username"
                 label="Enter UserName" />
               <TextField
+                type="password"
                 variant="standard"
                 onChange={(e) => onValueChange(e)}
                 name="password"

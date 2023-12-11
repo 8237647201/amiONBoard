@@ -22,8 +22,8 @@ import {
 const Container = styled(Box)({
   display: "flex",
   flexDirection: "row",
+  marginTop: "100px",
   justifyContent: "space-between",
-  height: "100vh",
   backgroundColor: "#f0f0f0",
 });
 

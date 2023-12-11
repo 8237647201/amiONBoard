@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-hot-toast'; 
-import Header from '../Header/Header.jsx';
+import { toast } from 'react-hot-toast';
 
 // Import the background image
 import BackgroundImage from '../../Image/you.jpg';
@@ -13,16 +12,15 @@ function Landing(props) {
     <div
       className="absolute inset-0 bg-black bg-opacity-50 flex items-center pl-4"
       style={{
-        backgroundImage: `url(${BackgroundImage})`, // Use the imported image
+        backgroundImage: `url(${BackgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        flexDirection: 'row', 
-        justifyContent: 'flex-end', 
-        paddingRight: '10rem', 
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingRight: '10rem',
       }}
     >
-      <Header />
-      <div className="text-white text-left" style={{ paddingLeft: '2rem' }}> 
+      <div className="text-white text-left" style={{ paddingLeft: '2rem' }}>
         <h1 className="text-6xl font-bold mb-4" style={{ color: "white" }}>Book your</h1>
         <h1 className="text-6xl font-bold mb-4" style={{ color: "#ff9000" }}>Ride!</h1>
 

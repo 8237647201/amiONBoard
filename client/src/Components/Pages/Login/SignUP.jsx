@@ -201,7 +201,7 @@ import GoogleIcon from "@mui/icons-material/Google"; // Import Google icon
 import "../../../index.css";
 import { signupUser } from "../../API/fetchApi";
 import { useNavigate } from "react-router-dom";
-import Bg1 from "../../Image/bluryou.jpeg.jpg";
+import Bg1 from "../../Image/bluryou.jpg";
 const Overlay = styled("div")`
   position: absolute;
   width: 100%;
@@ -346,60 +346,60 @@ const SignUP = () => {
 
   return (
     <Overlay>
-    <Component style={{background:'rgba(0, 0, 0, 0.1)',borderWidth:"0px"}}>
-      <Box>
-        <Image src={BackgroundImage} style={{width:'250px',height:'180px'}} />
-        <Wrapper style={{background: 'Radial-gradient(circle,#FFA500,#003366)',border:'0px',borderRadius:'20px',marginBottom:'55px'}}>
-          <TextField
-            variant="standard"
-            name="fullName"
-            label="Your Full Name"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <TextField
-            variant="standard"
-            name="email"
-            label="Your Email"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <TextField
-            variant="standard"
-            name="username"
-            label="Create Username"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <TextField
-            variant="standard"
-            name="password"
-            label="Create Password"
-            type="password"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <TextField
-            variant="standard"
-            name="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <TextField
-            variant="standard"
-            name="mobile"
-            label="Your Mobile No."
-            onChange={(e) => handleInputChange(e)}
-            value={formData.mobile}
-          />
+      <Component style={{ background: 'rgba(0, 0, 0, 0.1)', borderWidth: "0px" }}>
+        <Box>
+          <Image src={BackgroundImage} style={{ width: '250px', height: '180px' }} />
+          <Wrapper style={{ background: 'Radial-gradient(circle,#FFA500,#003366)', border: '0px', borderRadius: '20px', marginBottom: '55px' }}>
+            <TextField
+              variant="standard"
+              name="fullName"
+              label="Your Full Name"
+              onChange={(e) => handleInputChange(e)}
+            />
+            <TextField
+              variant="standard"
+              name="email"
+              label="Your Email"
+              onChange={(e) => handleInputChange(e)}
+            />
+            <TextField
+              variant="standard"
+              name="username"
+              label="Create Username"
+              onChange={(e) => handleInputChange(e)}
+            />
+            <TextField
+              variant="standard"
+              name="password"
+              label="Create Password"
+              type="password"
+              onChange={(e) => handleInputChange(e)}
+            />
+            <TextField
+              variant="standard"
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              onChange={(e) => handleInputChange(e)}
+            />
+            <TextField
+              variant="standard"
+              name="mobile"
+              label="Your Mobile No."
+              onChange={(e) => handleInputChange(e)}
+              value={formData.mobile}
+            />
 
-          {error && <Error>{error}</Error>}
+            {error && <Error>{error}</Error>}
 
-          <SignUpButton style={{background:"#003366",color:'#FFA500'}} onClick={handleSubmit}>Submit</SignUpButton>
-          <Text style={{ textAlign: "center" }}> OR</Text>
-          <GoogleSignInButton style={{background:"#003366",color:'#FFA500'}}onClick={()=>{window.alert("!! it's Under Working")}}>
-            <GoogleIcon /> Sign in with Google
-          </GoogleSignInButton>
-        </Wrapper>
-      </Box>
-    </Component>
+            <SignUpButton style={{ background: "#003366", color: '#FFA500' }} onClick={handleSubmit}>Submit</SignUpButton>
+            <Text style={{ textAlign: "center" }}> OR</Text>
+            <GoogleSignInButton style={{ background: "#003366", color: '#FFA500' }} onClick={() => { window.alert("!! it's Under Working") }}>
+              <GoogleIcon /> Sign in with Google
+            </GoogleSignInButton>
+          </Wrapper>
+        </Box>
+      </Component>
     </Overlay>
   );
 };
