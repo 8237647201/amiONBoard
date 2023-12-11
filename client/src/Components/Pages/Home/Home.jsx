@@ -88,6 +88,7 @@ export default function BasicSelect() {
               own ride
             </span>
           </h1>
+          <h2 style={{marginLeft:"35%",fontSize:'30px',color:"#003366"}}>JOIN THE #DUORIDE COMMUNITY </h2>
         </div>
         <div style={{ width: "100%" }}>
           <Link to="/Ride">

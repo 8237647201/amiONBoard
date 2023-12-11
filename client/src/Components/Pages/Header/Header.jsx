@@ -13,7 +13,7 @@ const Container = styled(Toolbar)`
   & > a {
     padding: 20px;
     text-decoration: none;
-    color: #EA1179; 
+    color: #191D88; 
     font-weight: bold; 
     cursor: pointer;
     font-size: 25px;

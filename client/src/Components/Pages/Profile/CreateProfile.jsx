@@ -380,7 +380,7 @@ export default CreateProfile;
 //   position: absolute;
 //   width: 100%;
 //   height: 100%;
-//   background:linear-gradient(180deg,#003366,#FFA500);
+//   background:white;
 //   backdrop-filter: blur(10px); 
 //   display: flex;
 // `;
