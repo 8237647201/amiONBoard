@@ -167,7 +167,7 @@ const CreateProfile = ({ user }) => {
         data.mobile &&
         data.EnrollNO
       ) {
-        setData({ ...data, isStudent: true, isProfileCompleted: true });
+        // setData({ ...data, isStudent: true, isProfileCompleted: true });
       }
       const updatedData = {
         ...data,
@@ -202,6 +202,7 @@ const CreateProfile = ({ user }) => {
         ...data,
         isRider: true,
         isProfileCompleted: true,
+        isStudent :false,
         username: rider.username,
         mobile: rider.mobile,
         fullName: data.fullName,
