@@ -1,6 +1,6 @@
 import "./index.css";
 import Login from "./Components/Pages/Login/Login";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import DataProvider from "./Components/DataProvider/Dataprovider.jsx";
 import {
   BrowserRouter,
@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Home from "./Components/Pages/Home/Home";
 import Header from "./Components/Pages/Header/Header.jsx";
+import Footer from "./Components/Pages/Footer/Footer.jsx";
 import Landing from "./Components/Pages/Landing/Landing.jsx";
 import SignUP from "./Components/Pages/Login/SignUP";
 
@@ -24,6 +25,7 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   ) : (
     <Navigate replace to="/" />
@@ -31,10 +33,10 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 };
 
 function App() {
-  
-  
+
+
   const [isAuthenticated, isUserAuthenticated] = useState(false);
- 
+
 
   return (
     <DataProvider>
@@ -54,18 +56,18 @@ function App() {
 
             <Route path="/about" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/about" element={<About />} />
-             </Route>
+            </Route>
 
             <Route path="/profile" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/profile" element={<Profile />} />
             </Route>
- 
+
             <Route path="/ride" element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
               <Route exact path="/ride" element={<Ride />} />
             </Route>
-            
+
           </Routes>
-          
+
         </div>
       </BrowserRouter>
     </DataProvider>
