@@ -21,7 +21,6 @@ import {
 //css handling
 const Container = styled(Box)({
   backgroundColor: "#f0f0f0",
-  minHeigth: "100vh"
 });
 
 const Sidebar = styled(Box)({
