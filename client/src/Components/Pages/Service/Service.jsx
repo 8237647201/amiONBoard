@@ -122,7 +122,7 @@ const textStyle = {
 
 const divstyle = {
   width: "100%",
-  padding: "0 50px 0 50px",
+  padding: "0 150px 0 150px",
   color: "#0d264c",
   display: "flex",
   justifyContent: "space-between",
