@@ -22,12 +22,10 @@ export const signUpUser = async (req, res) => {
     console.log(newUser.password);
     // checking the correct formate of email
     if (!newUser.emailValidator()) {
-      console.log("cal");
       return res.status(401).json({ msg: "Email format is not valid" });
     }
 
     if (!newUser.validatePassword0()) {
-      console.log("cal;");
       return res.status(401).json({
         msg: "Password should have at least one number and one special character",
       });
