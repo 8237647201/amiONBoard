@@ -167,7 +167,7 @@ const CreateProfile = ({ user }) => {
         data.mobile &&
         data.EnrollNO
       ) {
-        setData({ ...data, isStudent: true, isProfileCompleted: true });
+        // setData({ ...data, isStudent: true, isProfileCompleted: true });
       }
       const updatedData = {
         ...data,
@@ -202,6 +202,7 @@ const CreateProfile = ({ user }) => {
         ...data,
         isRider: true,
         isProfileCompleted: true,
+        isStudent :false,
         username: rider.username,
         mobile: rider.mobile,
         fullName: data.fullName,
@@ -380,7 +381,7 @@ export default CreateProfile;
 //   position: absolute;
 //   width: 100%;
 //   height: 100%;
-//   background:linear-gradient(180deg,#003366,#FFA500);
+//   background:white;
 //   backdrop-filter: blur(10px); 
 //   display: flex;
 // `;
