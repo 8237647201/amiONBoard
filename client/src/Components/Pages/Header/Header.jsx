@@ -1,32 +1,8 @@
-<<<<<<< HEAD
-import { AppBar, Button, Toolbar, styled } from "@mui/material";
-import { Link,useNavigate } from "react-router-dom";
-
-const Component = styled(AppBar)`
-  background: transparent;
-  color: #000;
-  box-shadow: none;
-`;
-
-const Container = styled(Toolbar)`
-  justify-content: right;
-
-  & > a {
-    padding: 20px;
-    text-decoration: none;
-    color: #191D88; 
-    font-weight: bold; 
-    cursor: pointer;
-    font-size: 25px;
-  }
-`;
-=======
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from "react-router-dom";
 import logoImg from "../../Image/location.png";
->>>>>>> f310609e11d4c6271575f5ade9f6d72efe78333c
 
 const Header = () => {
   const Navigator = useNavigate()
