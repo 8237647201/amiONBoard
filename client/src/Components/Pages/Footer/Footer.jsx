@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Image/logo.png';
+import logo from '../../Image/logowithoutbg.png';
 import instagram from '../../Image/instagram.png';
 import facebook from '../../Image/facebook.png';
 import github from '../../Image/github.png';
 import linkedin from '../../Image/linkedin.png';
 
-const Shadow = {
+const navStyle = {
+    backgroundImage: "linear-gradient(to right, #fa709a 0%, #fee140 100%)",
     boxShadow: "1px 0px 10px #d2d2d2"
 }
 
@@ -15,7 +16,7 @@ const logoDiv = {
 }
 
 const titleStyle = {
-    color: "#ff9000"
+    color: "#fff",
 }
 
 const smText = {
@@ -33,7 +34,7 @@ const linkStyle = {
 
 const Footer = () => {
     return (
-        <div style={Shadow} className='d-flex flex-md-row flex-wrap align-items-center'>
+        <div style={navStyle} className='d-flex flex-md-row flex-wrap align-items-start'>
             <div style={logoDiv} className='d-flex flex-col m-5'>
                 <div>
                     <img style={{ borderRadius: "10px" }} src={logo} alt="logo" />

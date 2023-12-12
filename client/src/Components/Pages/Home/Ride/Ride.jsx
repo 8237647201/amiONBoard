@@ -20,11 +20,8 @@ import {
 
 //css handling
 const Container = styled(Box)({
-  display: "flex",
-  flexDirection: "row",
-  marginTop: "100px",
-  justifyContent: "space-between",
   backgroundColor: "#f0f0f0",
+  minHeigth: "100vh"
 });
 
 const Sidebar = styled(Box)({
@@ -186,7 +183,7 @@ const Ride = () => {
 
 
   return (
-    <Container>
+    <Container className="d-flex flex-md-row flex-col justify-between">
       <Sidebar>
         <Typography variant="h4" text="bold" gutterBottom>
           Create Your Request Here!

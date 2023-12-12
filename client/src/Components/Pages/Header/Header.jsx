@@ -69,7 +69,7 @@ const Header = () => {
         <Nav>
           <Link style={LinkStyle} className="d-flex align-middle" to="/home">
             <img style={logoStyle} src={logoImg} alt="logo" />
-            <span className="ms-auto">AmiOnBoard</span>
+            <span style={{ color: "black" }} className="ms-auto">AmiOnBoard</span>
           </Link>
         </Nav>
         <Navbar.Collapse id="responsive-navbar-nav">
